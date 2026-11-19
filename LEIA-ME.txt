@@ -1,0 +1,16 @@
+AME LIVE! OVERDOSE (versao Rust)
+
+1. De dois cliques em "AME LIVE.exe". Abre uma janela preta (o servidor) e o navegador.
+2. Deixe a janela preta aberta enquanto usar. Para encerrar, feche ela.
+3. Se o Windows pedir permissao de rede (Firewall), clique em Permitir.
+
+Se o navegador nao abrir sozinho, acesse http://localhost:3000
+Para outra porta, defina a variavel PORT antes de abrir.
+
+O site (ame-live.html) ja vai dentro do .exe. Nao precisa de Node.js.
+Para amigos de fora: use um tunel https (ex: npx cloudflared tunnel --url http://localhost:3000)
+ou publique no Render.
+
+Para recompilar: instale o Rust (rustup.rs) e rode "cargo build --release" dentro de codigo-fonte.
+Se mudar o ame-live.html, recompile para o .exe pegar a mudanca.
+
