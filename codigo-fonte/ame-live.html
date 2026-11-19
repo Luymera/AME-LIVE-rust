@@ -1,0 +1,314 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#2a1250">
+<title>AME LIVE! OVERDOSE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=VT323&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#1b0a33;--pink:#ff5fa2;--hot:#ff2f86;--baby:#8fd3ff;--lav:#c9a5ff;--paper:#fff0f8;--yellow:#fff27a;--font:"DotGothic16","VT323","Courier New",monospace}
+*{box-sizing:border-box}
+html,body{height:100%;margin:0}
+body{font-family:var(--font);font-size:14px;color:var(--ink);image-rendering:pixelated;
+background:
+ linear-gradient(45deg,#3a1a6e 25%,transparent 25%,transparent 75%,#3a1a6e 75%) 0 0/16px 16px,
+ linear-gradient(45deg,#3a1a6e 25%,transparent 25%,transparent 75%,#3a1a6e 75%) 8px 8px/16px 16px,#2a1250}
+button,input{font:inherit;color:inherit}button{cursor:pointer}
+.app{height:100%;display:grid;grid-template-columns:150px minmax(0,1fr) 250px;grid-template-rows:auto minmax(0,1fr) auto;gap:10px;padding:10px}
+.win{background:var(--paper);border:3px solid #000;box-shadow:5px 5px 0 #000;display:flex;flex-direction:column;min-height:0;min-width:0}
+.bar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 6px;color:#fff;background:repeating-linear-gradient(90deg,var(--pink) 0 4px,#ff7ab5 4px 8px);border-bottom:3px solid #000;text-shadow:1px 1px 0 #000;font-size:13px}
+.bar i{display:flex;gap:3px;font-style:normal}.bar i b{width:14px;height:14px;background:var(--paper);border:2px solid #000;display:block;color:#000;text-shadow:none;font-size:9px;line-height:10px;text-align:center}
+.bar.blue{background:repeating-linear-gradient(90deg,#5bb8ff 0 4px,var(--baby) 4px 8px)}
+.bar.lav{background:repeating-linear-gradient(90deg,#a56bff 0 4px,var(--lav) 4px 8px)}
+.body{padding:10px;min-height:0;overflow:auto;flex:1}
+header.win{grid-column:1/-1;flex-direction:row;align-items:center;justify-content:space-between;padding:6px 10px;background:var(--ink);color:#fff;border-color:var(--pink);box-shadow:5px 5px 0 #000}
+.brand{font-size:22px;letter-spacing:1px;text-shadow:2px 2px 0 var(--hot)}.brand span{color:var(--yellow)}
+.user{display:flex;align-items:center;gap:8px;font-size:13px}
+.btn{background:var(--paper);border:3px solid #000;box-shadow:3px 3px 0 #000;padding:6px 10px;color:var(--ink)}
+.btn:hover{background:var(--yellow)}.btn:active{box-shadow:0 0 0 #000;transform:translate(3px,3px)}
+.btn:focus-visible,input:focus-visible{outline:3px dashed var(--hot);outline-offset:2px}
+.btn.on{background:var(--pink);color:#fff;text-shadow:1px 1px 0 #000}.btn.share.on{background:var(--baby);color:var(--ink);text-shadow:none}.btn.leave{background:var(--hot);color:#fff;text-shadow:1px 1px 0 #000}
+aside.rooms{grid-row:2/4}
+.room{display:block;width:100%;text-align:left;border:0;background:transparent;padding:7px 6px;margin:2px 0;color:var(--ink)}
+.room:hover{background:#ffd9ec}.room.active{background:var(--ink);color:var(--yellow)}.room .h{color:var(--hot)}.room.active .h{color:var(--pink)}
+.invite{width:100%;margin-top:12px;background:#fff;border:3px dashed var(--hot);padding:8px;color:var(--hot)}
+.sticker{margin-top:14px;text-align:center;font-size:26px;line-height:1.2;color:var(--hot)}.sticker small{display:block;font-size:11px;color:var(--ink)}
+main{grid-column:2;grid-row:2;min-width:0;min-height:0;display:flex;flex-direction:column;gap:10px}
+.tophead{display:flex;justify-content:space-between;align-items:center;gap:8px}.tophead h1{margin:0;font-size:20px}.tophead p{margin:2px 0 0;font-size:12px;color:#7a5a8a}
+.livebadge{background:var(--hot);color:#fff;border:3px solid #000;padding:3px 8px;animation:blink 1s steps(2) infinite}
+@keyframes blink{50%{opacity:.35}}
+.preview{background:linear-gradient(135deg,var(--baby),#ffc4e1);padding:12px;display:grid;place-items:center;border-bottom:3px solid #000;flex:1;min-height:340px}
+.shared{width:100%;height:100%;background:#fff;border:3px solid #000;box-shadow:5px 5px 0 #000;display:flex;flex-direction:column}
+.shared-top{background:var(--ink);color:#fff;padding:3px 8px;font-size:12px}
+.shared-body{flex:1;padding:12px;display:grid;grid-template-columns:1fr 170px;gap:10px;min-height:0;position:relative}
+.screen{position:relative;border:3px solid #000;background:repeating-conic-gradient(#ffd0e6 0 25%,#fff 0 50%) 0 0/16px 16px;display:grid;place-items:center;overflow:hidden;min-height:0}
+.screen video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;display:none}
+.screen.live video{display:block}.screen.live .ph{display:none}
+.ph{background:var(--paper);border:3px solid #000;padding:6px 10px;text-align:center}
+.tiles{display:grid;grid-template-rows:auto;align-content:start;gap:10px;min-height:0}
+.tile{border:3px solid #000;background:var(--lav);display:grid;place-items:center;text-align:center;font-size:12px;position:relative;overflow:hidden;min-height:0}
+.tile{aspect-ratio:1}.tile .me{padding:4px}
+.av{display:inline-grid;place-items:center;width:30px;height:30px;border:3px solid #000;background:var(--lav) center/cover;image-rendering:pixelated;flex:none;font-size:15px;color:#fff;text-shadow:1px 1px 0 #000;overflow:hidden}
+.av.big{width:76px;height:76px;font-size:34px}.av.huge{width:104px;height:104px;font-size:44px}
+.modal{position:fixed;inset:0;background:#1b0a33cc;display:grid;place-items:center;z-index:20;padding:14px}
+.modal .win{width:min(380px,100%)}.prow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.modal label.lb{display:block;margin-top:6px}.modal input[type=text]{width:100%;border:3px solid #000;padding:8px;background:#fff;margin-top:4px}
+.messages:empty::before{content:"Nenhuma mensagem ainda ✦";color:#7a5a8a;font-size:12px}
+.tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);display:none}
+.tile.live video{display:block}.tile.live span{display:none}
+.stagefoot{display:flex;justify-content:space-between;padding:6px 10px;font-size:12px}
+.meter{display:flex;gap:2px;align-items:flex-end;height:14px}.meter b{width:6px;height:100%;background:#d9c2e8;border:1px solid #000}.meter b.on{background:var(--hot)}
+
+aside.chat{grid-column:3;grid-row:2}
+.messages{display:flex;flex-direction:column;gap:10px;background:#fff;border-bottom:3px solid #000}
+.message{display:flex;gap:8px;line-height:1.4;overflow-wrap:anywhere;font-size:13px}.message .t{min-width:0}.message strong{display:block;color:var(--hot)}
+.compose{padding:8px;display:flex;gap:6px}.compose input{min-width:0;flex:1;border:3px solid #000;padding:7px;background:#fff}
+footer.win{grid-column:2/4;grid-row:3;flex-direction:row;align-items:center;gap:8px;padding:8px 10px;background:#ffd9ec;flex-wrap:wrap}
+.status{margin-right:auto;font-size:12px}
+.toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--yellow);border:3px solid var(--pink);padding:8px 12px;opacity:0;pointer-events:none;z-index:9;transition:opacity .15s steps(3)}.toast.show{opacity:1}
+[hidden]{display:none!important}
+@media(max-width:900px){
+ html,body{height:auto}.app{height:auto;grid-template-columns:150px minmax(0,1fr);grid-template-rows:auto auto auto auto}
+ aside.rooms{grid-column:1;grid-row:2}main{grid-column:2;grid-row:2}aside.chat{grid-column:1/-1;grid-row:3;height:320px}footer.win{grid-column:1/-1;grid-row:4}.preview{min-height:260px}}
+@media(max-width:560px){
+ .app{grid-template-columns:1fr;gap:12px}header.win,aside.rooms,main,aside.chat,footer.win{grid-column:1}
+ aside.rooms{grid-row:2}main{grid-row:3}aside.chat{grid-row:4}footer.win{grid-row:5}
+ aside.rooms .body{display:flex;gap:4px;overflow:auto;align-items:center}.room{width:auto;white-space:nowrap}.invite,.sticker{display:none}
+ .brand{font-size:16px}.user{font-size:11px}.btn{flex:1 1 45%}.shared-body{grid-template-columns:1fr 80px;padding:8px}}
+@media(prefers-reduced-motion:reduce){.livebadge{animation:none}}
+#roomList{display:contents}.newroom{width:100%;margin-top:10px;background:var(--yellow)}
+@media(max-width:560px){.newroom{width:auto;margin:0;white-space:nowrap;flex:none}}
+.net{font-size:12px;color:#ff9ec8}.net.on{color:#7dffb0}.tiles{overflow:auto}
+</style>
+</head>
+<body>
+<div class="app">
+ <header class="win"><div class="brand">AME LIVE! <span>OVERDOSE</span></div><div class="user"><span id="netState" class="net">● offline</span><span class="av" data-av></span><b data-name>amelia</b><button class="btn" id="editName">Editar perfil</button></div></header>
+
+ <aside class="win rooms"><div class="bar blue"><span>salas.exe</span><i><b>x</b></i></div><div class="body">
+  <div id="roomList"></div>
+  <button class="btn newroom" id="newRoom" type="button">+ Criar sala</button>
+  <button class="invite" id="invite">+ Convidar alguém</button>
+  <div class="sticker">♡ ✦ ♡<small>sem você eu não sou nada</small></div>
+ </div></aside>
+
+ <main>
+  <section class="win" style="flex:1">
+   <div class="bar"><span id="streamTitle">Transmissão de amelia</span><i><b>_</b><b>□</b><b>x</b></i></div>
+   <div class="preview"><div class="shared"><div class="shared-top" id="roomTitleTop">#sala-de-stream · <span id="streamState">Prévia da tela</span></div>
+    <div class="shared-body">
+     <div class="screen" id="screenBox"><video id="screenVideo" autoplay playsinline muted></video><div class="ph">Nenhuma tela<br>compartilhada ✦</div></div>
+     <div class="tiles" id="tiles"><div class="tile" id="camTile"><video id="camVideo" autoplay playsinline muted></video><span class="me"><span class="av big" data-av></span><br><b data-name>amelia</b><br>câmera desligada</span></div></div>
+    </div></div></div>
+   <div class="stagefoot"><span id="callState">Chamada pronta</span><span class="meter" id="meter" title="Nível do microfone"><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></span></div>
+  </section>
+  <div class="tophead"><div><h1 id="roomTitle">sala-de-stream</h1><p>Compartilhe o momento com a galera.</p></div><span class="livebadge">● AO VIVO</span></div>
+ </main>
+
+ <aside class="win chat"><div class="bar lav"><span>mensagens.txt</span><i><b>x</b></i></div>
+  <div class="body messages" id="messages"></div>
+  <form class="compose" id="messageForm"><input id="messageInput" placeholder="Escreva uma mensagem…" aria-label="Escreva uma mensagem" autocomplete="off"><button class="btn" type="submit">Enviar</button></form>
+ </aside>
+
+ <footer class="win"><span class="status" id="callStatus">Você ainda não entrou na chamada</span>
+  <button class="btn" id="join">Entrar na chamada</button>
+  <button class="btn" id="mic">Microfone: desligado</button>
+  <button class="btn" id="camera">Câmera: desligada</button>
+  <button class="btn share" id="share">Compartilhar tela</button>
+  <button class="btn leave" id="leave" hidden>Sair</button>
+ </footer>
+</div>
+<div class="modal" id="profileModal" hidden><div class="win"><div class="bar"><span>perfil.exe</span><i><b id="closeProfile">x</b></i></div><div class="body">
+ <div class="prow"><span class="av huge" id="pvAv"></span><div><label class="btn" for="photoInput" style="display:inline-block">Escolher foto</label><input type="file" id="photoInput" accept="image/*" hidden><br><button class="btn" id="rmPhoto" type="button" style="margin-top:8px">Remover foto</button></div></div>
+ <label class="lb" for="nameInput">Nome</label><input type="text" id="nameInput" maxlength="24" autocomplete="off">
+ <div class="prow"><button class="btn on" id="saveProfile" type="button">Salvar</button><button class="btn" id="cancelProfile" type="button">Cancelar</button></div>
+</div></div></div>
+<div class="modal" id="roomModal" hidden><div class="win"><div class="bar lav"><span>nova-sala.exe</span><i><b>x</b></i></div><div class="body">
+ <label class="lb" for="roomInput">Nome da sala</label><input type="text" id="roomInput" maxlength="30" placeholder="ex: cantinho da ame" autocomplete="off">
+ <div class="prow"><button class="btn on" id="createRoom" type="button">Criar sala</button><button class="btn" id="cancelRoom" type="button">Cancelar</button></div>
+</div></div></div>
+<div class="modal" id="inviteModal" hidden><div class="win"><div class="bar blue"><span>convidar.exe</span><i><b>x</b></i></div><div class="body">
+ <p style="margin:0 0 8px">Link da sala <b id="inviteRoom"></b></p><input type="text" id="inviteInput" readonly>
+ <div class="prow"><button class="btn on" id="copyInvite" type="button">Copiar link</button><button class="btn" id="closeInvite" type="button">Fechar</button></div>
+ <p style="margin:0;font-size:12px;color:#7a5a8a">Quem abrir esse link entra na mesma sala. Para amigos de fora, o servidor precisa estar num endereço público (https).</p>
+</div></div></div>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const $=s=>document.querySelector(s);
+let joined=false,micStream=null,camStream=null,screenStream=null,audioCtx=null,meterRaf=0,toastTimer;
+let profile={name:'amelia',photo:''};
+try{const p=JSON.parse(localStorage.getItem('ameProfile')||'null');if(p&&p.name)profile=p}catch{}
+const name=()=>profile.name;
+let roomNames=['sala-de-stream','cantinho','modo-foco'];
+try{const r=JSON.parse(localStorage.getItem('ameRooms')||'null');if(Array.isArray(r)&&r.length)roomNames=r}catch{}
+const rooms={};roomNames.forEach(n=>rooms[n]=[]);
+let room=roomNames[0];
+
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>e.classList.remove('show'),2200)}
+function paintAv(el,p=profile){el.style.backgroundImage=p.photo?`url(${p.photo})`:'';el.textContent=p.photo?'':(p.name||'?').charAt(0).toUpperCase()}
+function renderProfile(){document.querySelectorAll('[data-av]').forEach(paintAv);document.querySelectorAll('[data-name]').forEach(e=>e.textContent=profile.name);$('#streamTitle').textContent='Transmissão de '+profile.name}
+function addMsg(m){const el=document.createElement('div');el.className='message';const a=document.createElement('span');a.className='av';paintAv(a,m);
+ const t=document.createElement('div');t.className='t';const s=document.createElement('strong'),b=document.createElement('span');s.textContent=m.name;b.textContent=m.text;t.append(s,b);el.append(a,t);$('#messages').append(el);el.scrollIntoView({block:'nearest'})}
+function pushMsg(m){rooms[room].push(m);addMsg(m)}
+function renderRoom(){$('#messages').innerHTML='';rooms[room].forEach(m=>addMsg(m))}
+
+const slug=v=>v.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,24);
+function saveRooms(){try{localStorage.setItem('ameRooms',JSON.stringify(roomNames))}catch{}}
+function ensureRoom(n){if(!rooms[n]){rooms[n]=[];roomNames.push(n);saveRooms()}}
+function renderRoomList(){const l=$('#roomList');l.innerHTML='';roomNames.forEach(n=>{const b=document.createElement('button');b.type='button';b.className='room'+(n===room?' active':'');const h=document.createElement('span');h.className='h';h.textContent='#';b.append(h,' '+n);b.addEventListener('click',()=>{openRoom(n);toast('Sala aberta: '+n)});l.append(b)})}
+function openRoom(n){room=n;renderRoomList();$('#roomTitle').textContent=n;$('#roomTitleTop').firstChild.textContent='#'+n+' · ';renderRoom();joinRoom(n)}
+function makeRoom(){const n=slug($('#roomInput').value);if(!n){toast('Escreva um nome para a sala');return}ensureRoom(n);openRoom(n);$('#roomModal').hidden=true;toast('Sala criada: '+n)}
+$('#newRoom').addEventListener('click',()=>{$('#roomInput').value='';$('#roomModal').hidden=false;$('#roomInput').focus()});
+$('#createRoom').addEventListener('click',makeRoom);$('#roomInput').addEventListener('keydown',e=>{if(e.key==='Enter')makeRoom()});
+$('#cancelRoom').addEventListener('click',()=>{$('#roomModal').hidden=true});
+
+$('#messageForm').addEventListener('submit',e=>{e.preventDefault();const i=$('#messageInput'),t=i.value.trim();if(!t)return;sendChat(t);i.value=''});
+
+/* perfil: nome + foto */
+let draft={photo:''};
+function paintDraft(){const el=$('#pvAv');el.style.backgroundImage=draft.photo?`url(${draft.photo})`:'';el.textContent=draft.photo?'':($('#nameInput').value.trim()||'?').charAt(0).toUpperCase()}
+const closeP=()=>{$('#profileModal').hidden=true};
+$('#editName').addEventListener('click',()=>{draft={photo:profile.photo};$('#nameInput').value=profile.name;paintDraft();$('#profileModal').hidden=false;$('#nameInput').focus()});
+$('#nameInput').addEventListener('input',paintDraft);
+$('#photoInput').addEventListener('change',e=>{const f=e.target.files[0];e.target.value='';if(!f)return;
+ const img=new Image(),url=URL.createObjectURL(f);
+ img.onload=()=>{const s=Math.min(img.width,img.height),c=document.createElement('canvas');c.width=c.height=96;c.getContext('2d').drawImage(img,(img.width-s)/2,(img.height-s)/2,s,s,0,0,96,96);draft.photo=c.toDataURL('image/jpeg',.85);URL.revokeObjectURL(url);paintDraft()};
+ img.onerror=()=>toast('Não consegui abrir essa imagem');img.src=url});
+$('#rmPhoto').addEventListener('click',()=>{draft.photo='';paintDraft()});
+$('#cancelProfile').addEventListener('click',closeP);$('#closeProfile').addEventListener('click',closeP);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal').forEach(m=>m.hidden=true)});
+$('#saveProfile').addEventListener('click',()=>{const n=$('#nameInput').value.trim();if(!n){toast('Escreva um nome');return}
+ profile={name:n.slice(0,24),photo:draft.photo};try{localStorage.setItem('ameProfile',JSON.stringify(profile))}catch{}
+ renderProfile();sendProfile();closeP();toast('Perfil atualizado')});
+
+function updateStatus(){syncMedia();
+ if(!joined){$('#callStatus').textContent='Você ainda não entrou na chamada';return}
+ const p=[];p.push(micStream?'microfone ligado':'microfone desligado');if(camStream)p.push('câmera ligada');if(screenStream)p.push('compartilhando tela');
+ $('#callStatus').textContent='Conectado · '+p.join(' · ')}
+function setJoined(v){joined=v;$('#join').hidden=v;$('#leave').hidden=!v;if(v)startCall();else endCall();updateCount();updateStatus()}
+function join(){if(!joined){setJoined(true);toast('Você entrou na chamada')}}
+
+/* microfone (agora pede o mic de verdade e mostra o nível) */
+function stopMic(){cancelAnimationFrame(meterRaf);if(micStream)micStream.getTracks().forEach(t=>t.stop());micStream=null;if(audioCtx){audioCtx.close();audioCtx=null}
+ document.querySelectorAll('#meter b').forEach(b=>b.classList.remove('on'));const b=$('#mic');b.classList.remove('on');b.textContent='Microfone: desligado'}
+async function toggleMic(){
+ if(micStream){stopMic();updateStatus();return}
+ try{micStream=await navigator.mediaDevices.getUserMedia({audio:true});join();
+  const b=$('#mic');b.classList.add('on');b.textContent='Microfone: ligado';
+  audioCtx=new (window.AudioContext||window.webkitAudioContext)();const an=audioCtx.createAnalyser();an.fftSize=256;audioCtx.createMediaStreamSource(micStream).connect(an);
+  const d=new Uint8Array(an.frequencyBinCount),bars=[...document.querySelectorAll('#meter b')];
+  (function loop(){an.getByteFrequencyData(d);const lvl=d.reduce((a,c)=>a+c,0)/d.length/90;bars.forEach((x,i)=>x.classList.toggle('on',i<Math.round(lvl*bars.length)));meterRaf=requestAnimationFrame(loop)})();
+  updateStatus();toast('Microfone ligado')
+ }catch{micStream=null;toast('Não deu pra usar o microfone. Verifique a permissão do navegador.')}}
+$('#mic').addEventListener('click',toggleMic);
+
+/* câmera (agora mostra o vídeo no quadradinho) */
+function stopCam(){if(camStream)camStream.getTracks().forEach(t=>t.stop());camStream=null;$('#camVideo').srcObject=null;$('#camTile').classList.remove('live');const b=$('#camera');b.classList.remove('on');b.textContent='Câmera: desligada'}
+async function toggleCam(){
+ if(camStream){stopCam();updateStatus();return}
+ try{camStream=await navigator.mediaDevices.getUserMedia({video:true});join();
+  $('#camVideo').srcObject=camStream;$('#camTile').classList.add('live');const b=$('#camera');b.classList.add('on');b.textContent='Câmera: ligada';updateStatus();toast('Câmera ligada')
+ }catch{camStream=null;toast('Não deu pra ligar a câmera. Verifique a permissão do navegador.')}}
+$('#camera').addEventListener('click',toggleCam);
+
+/* compartilhar tela (agora mostra a tela de verdade) */
+function stopShare(){if(screenStream)screenStream.getTracks().forEach(t=>t.stop());screenStream=null;refreshScreen();
+ const b=$('#share');b.classList.remove('on');b.textContent='Compartilhar tela';$('#streamState').textContent='Prévia da tela'}
+async function toggleShare(){
+ if(screenStream){stopShare();updateStatus();return}
+ if(!navigator.mediaDevices||!navigator.mediaDevices.getDisplayMedia){toast('Seu navegador não suporta compartilhar tela.');return}
+ try{screenStream=await navigator.mediaDevices.getDisplayMedia({video:true,audio:true});join();
+  refreshScreen();
+  const b=$('#share');b.classList.add('on');b.textContent='Parar compartilhamento';
+  $('#streamState').textContent='Tela compartilhada'+(screenStream.getAudioTracks().length?' · áudio do PC ativo':'');
+  screenStream.getVideoTracks()[0].addEventListener('ended',()=>{stopShare();updateStatus()});updateStatus();toast('Compartilhamento iniciado')
+ }catch{screenStream=null;toast('Compartilhamento não iniciado')}}
+$('#share').addEventListener('click',toggleShare);
+
+$('#join').addEventListener('click',()=>{setJoined(true);toast('Você entrou na chamada')});
+$('#leave').addEventListener('click',()=>{stopMic();stopCam();stopShare();setJoined(false);$('#callStatus').textContent='Você saiu da chamada';toast('Você saiu da chamada')});
+
+const inviteLink=()=>location.href.split('#')[0]+'#sala='+encodeURIComponent(room);
+$('#invite').addEventListener('click',()=>{$('#inviteInput').value=inviteLink();$('#inviteRoom').textContent='#'+room;$('#inviteModal').hidden=false;$('#inviteInput').select()});
+$('#copyInvite').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('#inviteInput').value);toast('Link copiado!')}catch{$('#inviteInput').select();toast('Copie o link selecionado')}});
+$('#closeInvite').addEventListener('click',()=>{$('#inviteModal').hidden=true});
+function openFromHash(){const m=location.hash.match(/^#sala=(.+)$/);if(m){try{const n=slug(decodeURIComponent(m[1]));if(n){ensureRoom(n);room=n}}catch{}}openRoom(room)}
+
+/* ===== rede: servidor, chat e chamadas (WebRTC) ===== */
+let ws=null,myId=null;const peers=new Map();
+const ICE={iceServers:[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'}]};
+const KINDS=['audio','video','video','audio'];
+const wsUrl=()=>location.protocol==='file:'||!location.host?'ws://localhost:3000':(location.protocol==='https:'?'wss://':'ws://')+location.host;
+const online=()=>ws&&ws.readyState===1;
+function send(o){if(online())ws.send(JSON.stringify(o))}
+function setNet(on){const e=$('#netState');e.textContent=on?'● online':'● offline';e.classList.toggle('on',on)}
+function connect(){
+ try{ws=new WebSocket(wsUrl())}catch{return}
+ ws.onopen=()=>{setNet(true);sendJoin()};
+ ws.onclose=()=>{setNet(false);myId=null;clearPeers();setTimeout(connect,3000)};
+ ws.onmessage=e=>{try{handle(JSON.parse(e.data))}catch(err){console.error(err)}}}
+const sendJoin=()=>send({t:'join',room,name:profile.name,photo:profile.photo});
+const sendProfile=()=>send({t:'profile',name:profile.name,photo:profile.photo});
+function sendChat(text){if(online())send({t:'chat',text});else pushMsg({name:profile.name,photo:profile.photo,text})}
+function joinRoom(n){if(joined){stopMic();stopCam();stopShare();setJoined(false)}if(online()){clearPeers();sendJoin()}}
+function updateCount(){$('#callState').textContent=(joined?'Na chamada':'Chamada pronta')+' · '+(peers.size+1)+(peers.size?' pessoas':' pessoa')+' na sala'}
+
+function handle(m){
+ if(m.t==='welcome'){myId=m.id;clearPeers();m.peers.forEach(addPeer);rooms[room]=m.history;renderRoom();updateCount();if(joined)startCall()}
+ else if(m.t==='peer')addPeer(m);
+ else if(m.t==='left'){const p=peers.get(m.id);if(p){closePc(p);p.tile.remove();peers.delete(m.id);updateCount();refreshScreen()}}
+ else if(m.t==='chat')pushMsg(m);
+ else if(m.t==='call'){const p=peers.get(m.id);if(p){p.inCall=m.on;if(!m.on){p.mic=p.cam=p.screen=false;closePc(p)}}}
+ else if(m.t==='media'){const p=peers.get(m.id);if(p){p.mic=m.mic;p.cam=m.cam;p.screen=m.screen;addPeer(p)}}
+ else if(m.t==='signal')onSignal(m.from,m.data)}
+
+function addPeer(p){let x=peers.get(p.id);
+ if(!x){x={id:p.id,pc:null,pend:[],camStream:null,screenStream:null,audioStream:new MediaStream()};
+  const t=document.createElement('div');t.className='tile';const v=document.createElement('video');v.autoplay=true;v.playsInline=true;v.muted=true;
+  const sp=document.createElement('span');sp.className='me';const a=document.createElement('span');a.className='av big';const nm=document.createElement('b');
+  const au=document.createElement('audio');au.autoplay=true;au.srcObject=x.audioStream;sp.append(a,document.createElement('br'),nm);t.append(v,sp,au);$('#tiles').append(t);
+  Object.assign(x,{tile:t,video:v,av:a,nm,audio:au});peers.set(p.id,x)}
+ if(p!==x)Object.assign(x,p);
+ paintAv(x.av,x);x.nm.textContent=x.name;x.tile.classList.toggle('live',!!(x.cam&&x.camStream));
+ if(x.video.srcObject!==x.camStream)x.video.srcObject=x.camStream;
+ updateCount();refreshScreen()}
+function clearPeers(){peers.forEach(p=>{closePc(p);p.tile.remove()});peers.clear();updateCount();refreshScreen()}
+function closePc(p){if(p.pc){p.pc.close();p.pc=null}p.pend=[];p.camStream=null;p.screenStream=null;p.audioStream.getTracks().forEach(t=>p.audioStream.removeTrack(t));addPeer(p)}
+
+function refreshScreen(){let src=null,from=null;
+ if(screenStream)src=screenStream;else for(const p of peers.values())if(p.screen&&p.screenStream){src=p.screenStream;from=p;break}
+ const v=$('#screenVideo');v.muted=true;if(v.srcObject!==src)v.srcObject=src;$('#screenBox').classList.toggle('live',!!src);
+ if(from)$('#streamState').textContent='Tela de '+from.name;else if(!screenStream)$('#streamState').textContent='Prévia da tela'}
+
+function localTracks(){return[micStream&&micStream.getAudioTracks()[0],camStream&&camStream.getVideoTracks()[0],screenStream&&screenStream.getVideoTracks()[0],screenStream&&screenStream.getAudioTracks()[0]]}
+function applyTracks(pc){const tr=localTracks();pc.getTransceivers().forEach((t,i)=>{if(i<4)t.sender.replaceTrack(tr[i]||null).catch(()=>{})})}
+function syncMedia(){peers.forEach(p=>p.pc&&applyTracks(p.pc));send({t:'media',mic:!!micStream,cam:!!camStream,screen:!!screenStream})}
+function startCall(){send({t:'call',on:true});peers.forEach(p=>{if(p.inCall)callPeer(p)});syncMedia()}
+function endCall(){peers.forEach(closePc);send({t:'call',on:false})}
+
+function newPc(p){const pc=new RTCPeerConnection(ICE);p.pc=pc;
+ pc.onicecandidate=e=>{if(e.candidate)send({t:'signal',to:p.id,data:{ice:e.candidate}})};
+ pc.ontrack=e=>{const i=pc.getTransceivers().indexOf(e.transceiver);
+  if(i===0||i===3){p.audioStream.addTrack(e.track);p.audio.play().catch(()=>{})}
+  else if(i===1){p.camStream=new MediaStream([e.track]);addPeer(p)}
+  else if(i===2){p.screenStream=new MediaStream([e.track]);refreshScreen()}};
+ return pc}
+async function callPeer(p){if(p.pc)return;const pc=newPc(p);KINDS.forEach(k=>pc.addTransceiver(k,{direction:'sendrecv'}));applyTracks(pc);
+ await pc.setLocalDescription(await pc.createOffer());send({t:'signal',to:p.id,data:{sdp:pc.localDescription}})}
+function flushIce(p){(p.pend||[]).forEach(c=>p.pc.addIceCandidate(c).catch(()=>{}));p.pend=[]}
+async function onSignal(from,d){const p=peers.get(from);if(!p)return;
+ if(d.sdp){
+  if(d.sdp.type==='offer'){if(!joined)return;if(p.pc&&p.pc.signalingState==='have-local-offer'&&String(myId)<String(from))return;
+   if(p.pc)closePc(p);const pc=newPc(p);await pc.setRemoteDescription(d.sdp);pc.getTransceivers().forEach(t=>t.direction='sendrecv');applyTracks(pc);
+   await pc.setLocalDescription(await pc.createAnswer());send({t:'signal',to:from,data:{sdp:pc.localDescription}});flushIce(p)}
+  else if(p.pc&&p.pc.signalingState==='have-local-offer'){await p.pc.setRemoteDescription(d.sdp);flushIce(p)}}
+ else if(d.ice){if(p.pc&&p.pc.remoteDescription)p.pc.addIceCandidate(d.ice).catch(()=>{});else p.pend.push(d.ice)}}
+
+renderProfile();openFromHash();connect();
+</script>
+</body>
+</html>
+
