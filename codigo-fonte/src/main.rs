@@ -1,3 +1,4 @@
+#![cfg_attr(all(not(debug_assertions), windows), windows_subsystem = "windows")]
 // AME LIVE! OVERDOSE - servidor em Rust.
 // Entrega a página, faz o chat das salas e repassa os sinais WebRTC
 // (mesmo protocolo do server.js antigo). A página vai embutida no executável.
@@ -231,27 +232,69 @@ async fn root(ws: Option<WebSocketUpgrade>, State(hub): State<Shared>) -> Respon
     }
 }
 
-fn pause_and_exit(msg: &str) -> ! {
-    eprintln!("{msg}\nAperte Enter para fechar.");
-    let _ = std::io::stdin().read_line(&mut String::new());
-    std::process::exit(1)
+
+fn start_server() -> u16 {
+    let (tx, rx) = std::sync::mpsc::channel();
+    std::thread::spawn(move || {
+        let rt = tokio::runtime::Builder::new_multi_thread().enable_all().build().unwrap();
+        rt.block_on(async move {
+            let l = match tokio::net::TcpListener::bind(("127.0.0.1", 3000)).await {
+                Ok(l) => l,
+                Err(_) => tokio::net::TcpListener::bind(("127.0.0.1", 0)).await.unwrap(),
+            };
+            let _ = tx.send(l.local_addr().unwrap().port());
+            let app = Router::new().route("/", get(root)).with_state(Shared::default());
+            let _ = axum::serve(l, app).await;
+        });
+    });
+    rx.recv().unwrap()
 }
 
-#[tokio::main]
-async fn main() {
-    let port: u16 = std::env::var("PORT").ok().and_then(|p| p.parse().ok()).unwrap_or(3000);
-    let app = Router::new().route("/", get(root)).with_state(Shared::default());
-    let listener = match tokio::net::TcpListener::bind(("0.0.0.0", port)).await {
-        Ok(l) => l,
-        Err(e) => pause_and_exit(&format!("Não consegui abrir a porta {port}: {e}\nTalvez o AME LIVE já esteja aberto.")),
+// servidor.txt ao lado do .exe: usa um servidor online em vez do interno
+fn remote_url() -> Option<String> {
+    let dir = std::env::current_exe().ok()?.parent()?.to_path_buf();
+    let t = std::fs::read_to_string(dir.join("servidor.txt")).ok()?;
+    let t = t.trim().to_string();
+    (t.starts_with("http://") || t.starts_with("https://")).then_some(t)
+}
+
+fn main() {
+    use tao::{
+        dpi::LogicalSize,
+        event::{Event, WindowEvent},
+        event_loop::{ControlFlow, EventLoop},
+        window::{Icon, WindowBuilder},
     };
-    let url = format!("http://localhost:{port}");
-    println!("AME LIVE! OVERDOSE rodando em {url}\nDeixe esta janela aberta. Para fechar, feche a janela.");
-    if cfg!(windows) && !std::env::args().any(|a| a == "--no-browser") {
-        let _ = std::process::Command::new("cmd").args(["/C", "start", "", &url]).spawn();
-    }
-    if let Err(e) = axum::serve(listener, app).await {
-        pause_and_exit(&format!("Erro no servidor: {e}"));
-    }
+    use wry::{WebContext, WebViewBuilder};
+
+    let port = start_server();
+    let url = remote_url().unwrap_or_else(|| format!("http://localhost:{port}"));
+    let event_loop = EventLoop::new();
+    let icon = Icon::from_rgba(include_bytes!("../icon64.rgba").to_vec(), 64, 64).ok();
+    let window = WindowBuilder::new()
+        .with_title("AME LIVE! OVERDOSE")
+        .with_inner_size(LogicalSize::new(1280.0, 800.0))
+        .with_window_icon(icon)
+        .build(&event_loop)
+        .unwrap();
+    let data = std::env::var_os("LOCALAPPDATA").map(|p| std::path::PathBuf::from(p).join("AME-LIVE"));
+    let mut ctx = WebContext::new(data);
+    let _webview = WebViewBuilder::with_web_context(&mut ctx)
+        .with_url(&url)
+        .with_new_window_req_handler(|u: String| {
+            if cfg!(windows) {
+                let _ = std::process::Command::new("cmd").args(["/C", "start", "", &u]).spawn();
+            }
+            false
+        })
+        .build(&window)
+        .unwrap();
+
+    event_loop.run(move |event, _, flow| {
+        *flow = ControlFlow::Wait;
+        if let Event::WindowEvent { event: WindowEvent::CloseRequested, .. } = event {
+            *flow = ControlFlow::Exit;
+        }
+    });
 }
 

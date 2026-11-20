@@ -149,7 +149,7 @@ let room=roomNames[0];
 
 function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>e.classList.remove('show'),2200)}
 function paintAv(el,p=profile){el.style.backgroundImage=p.photo?`url(${p.photo})`:'';el.textContent=p.photo?'':(p.name||'?').charAt(0).toUpperCase()}
-function renderProfile(){document.querySelectorAll('[data-av]').forEach(paintAv);document.querySelectorAll('[data-name]').forEach(e=>e.textContent=profile.name);$('#streamTitle').textContent='Transmissão de '+profile.name}
+function renderProfile(){document.querySelectorAll('[data-av]').forEach(e=>paintAv(e));document.querySelectorAll('[data-name]').forEach(e=>e.textContent=profile.name);$('#streamTitle').textContent='Transmissão de '+profile.name}
 function addMsg(m){const el=document.createElement('div');el.className='message';const a=document.createElement('span');a.className='av';paintAv(a,m);
  const t=document.createElement('div');t.className='t';const s=document.createElement('strong'),b=document.createElement('span');s.textContent=m.name;b.textContent=m.text;t.append(s,b);el.append(a,t);$('#messages').append(el);el.scrollIntoView({block:'nearest'})}
 function pushMsg(m){rooms[room].push(m);addMsg(m)}

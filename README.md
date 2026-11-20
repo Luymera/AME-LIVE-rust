@@ -1,9 +1,11 @@
 # AME LIVE! OVERDOSE
 
-Aplicativo de salas, chat e chamadas feito em Rust.
+Versão desktop do aplicativo de salas, mensagens e chamadas.
 
-## Executar no Windows
+## Baixar e abrir
 
-Baixe `AME-LIVE-rust.zip` e extraia os arquivos. Abra `AME LIVE.exe` e mantenha a janela do servidor aberta enquanto usa o app. A interface fica em <http://localhost:3000>.
+Baixe [AME-LIVE-app.zip](AME-LIVE-app.zip), extraia todos os arquivos para a mesma pasta e abra `AME LIVE.exe`. Mantenha `WebView2Loader.dll` ao lado do executável. O app usa o Microsoft Edge WebView2 Runtime.
 
-O código-fonte está em `codigo-fonte/`. Para recompilar, instale Rust e execute `cargo build --release` nessa pasta.
+O perfil e os dados ficam no computador em `%LOCALAPPDATA%\\AME-LIVE`. Para recompilar, instale Rust e rode `cargo build --release` dentro de `codigo-fonte`.
+
+Para conectar a um servidor online, crie `servidor.txt` ao lado do executável e coloque a URL do servidor em uma linha.

@@ -1,16 +1,17 @@
-AME LIVE! OVERDOSE (versao Rust)
+AME LIVE! OVERDOSE (app de desktop em Rust)
 
-1. De dois cliques em "AME LIVE.exe". Abre uma janela preta (o servidor) e o navegador.
-2. Deixe a janela preta aberta enquanto usar. Para encerrar, feche ela.
-3. Se o Windows pedir permissao de rede (Firewall), clique em Permitir.
+1. Extraia a pasta inteira e de dois cliques em "AME LIVE.exe".
+   (O arquivo WebView2Loader.dll precisa ficar ao lado do .exe.)
+2. Abre uma janela propria, sem navegador e sem janela preta.
+3. Na primeira vez, o Windows pergunta se o app pode usar camera e microfone: clique em Permitir.
 
-Se o navegador nao abrir sozinho, acesse http://localhost:3000
-Para outra porta, defina a variavel PORT antes de abrir.
+Requisito: Microsoft Edge WebView2 Runtime. Ja vem no Windows 11 e na maioria dos Windows 10.
+Se o app nao abrir, instale em: https://developer.microsoft.com/microsoft-edge/webview2/
 
-O site (ame-live.html) ja vai dentro do .exe. Nao precisa de Node.js.
-Para amigos de fora: use um tunel https (ex: npx cloudflared tunnel --url http://localhost:3000)
-ou publique no Render.
+Seu perfil e dados ficam em %LOCALAPPDATA%\AME-LIVE.
+
+Para usar um servidor online (ex: Render), crie servidor.txt ao lado do .exe com uma linha:
+   https://seu-endereco.onrender.com
 
 Para recompilar: instale o Rust (rustup.rs) e rode "cargo build --release" dentro de codigo-fonte.
-Se mudar o ame-live.html, recompile para o .exe pegar a mudanca.
 
