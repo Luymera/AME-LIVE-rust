@@ -1,11 +1,15 @@
-# AME LIVE! OVERDOSE
+# AME! LIVE — versão desktop
 
-Versão desktop do aplicativo de salas, mensagens e chamadas.
+App de salas, mensagens e chamadas para Windows.
 
-## Baixar e abrir
+## Download
 
-Baixe [AME-LIVE-app.zip](AME-LIVE-app.zip), extraia todos os arquivos para a mesma pasta e abra `AME LIVE.exe`. Mantenha `WebView2Loader.dll` ao lado do executável. O app usa o Microsoft Edge WebView2 Runtime.
+[**Baixar AME! LIVE para Windows — versão v1 fix**](https://github.com/Luymera/AME-LIVE-rust/releases/download/v1-fix/AME-LIVE-app-v1-fix.zip)
 
-O perfil e os dados ficam no computador em `%LOCALAPPDATA%\\AME-LIVE`. Para recompilar, instale Rust e rode `cargo build --release` dentro de `codigo-fonte`.
+Baixe o ZIP e extraia **todos** os arquivos para a mesma pasta. Abra `AME LIVE.exe`; mantenha `WebView2Loader.dll` e `cloudflared.exe` ao lado dele.
 
-Para conectar a um servidor online, crie `servidor.txt` ao lado do executável e coloque a URL do servidor em uma linha.
+Requer o Microsoft Edge WebView2 Runtime. O app pode pedir acesso à câmera e ao microfone. Ao gerar um link de convite externo, o app usa o Cloudflare Tunnel incluído no pacote; o link fica público enquanto o app estiver aberto.
+
+O código-fonte atualizado está em `codigo-fonte/`. Para recompilar, instale Rust e execute `cargo build --release` nessa pasta. O perfil e os dados locais ficam em `%LOCALAPPDATA%\\AME-LIVE`.
+
+O pacote inclui o Cloudflare Tunnel, distribuído sob licença Apache-2.0; consulte `LEIA-ME.txt` para os créditos.

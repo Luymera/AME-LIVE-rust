@@ -2,13 +2,16 @@
 // AME LIVE! OVERDOSE - servidor em Rust.
 // Entrega a página, faz o chat das salas e repassa os sinais WebRTC
 // (mesmo protocolo do server.js antigo). A página vai embutida no executável.
+mod tunnel;
+
 use axum::{
     extract::{
         ws::{Message, WebSocket, WebSocketUpgrade},
         State,
     },
     response::{Html, IntoResponse, Response},
-    routing::get,
+    http::{HeaderMap, StatusCode},
+    routing::{get, post},
     Router,
 };
 use futures_util::{SinkExt, StreamExt};
@@ -25,11 +28,14 @@ use tokio::sync::mpsc::{unbounded_channel, UnboundedSender};
 
 const PAGE: &str = include_str!("../ame-live.html");
 static NEXT_ID: AtomicU64 = AtomicU64::new(1);
+static PORT_NOW: AtomicU64 = AtomicU64::new(3000);
 
 struct Client {
     tx: UnboundedSender<Message>,
     name: String,
     photo: String,
+    status: String,
+    presence: String,
     in_call: bool,
     mic: bool,
     cam: bool,
@@ -59,6 +65,12 @@ fn clean_room(v: &str) -> String {
         .collect();
     if r.is_empty() { "sala-de-stream".into() } else { r }
 }
+fn clean_status(v: &str) -> String {
+    v.trim().chars().take(30).collect()
+}
+fn clean_pres(v: &str) -> String {
+    if v == "away" || v == "busy" { v.to_string() } else { "online".to_string() }
+}
 fn clean_photo(v: &str) -> String {
     let ok = v.len() < 80_000
         && ["jpeg", "png", "webp"].iter().any(|k| {
@@ -71,7 +83,7 @@ fn clean_photo(v: &str) -> String {
 }
 
 fn pubc(id: &str, c: &Client) -> Value {
-    json!({"id": id, "name": c.name, "photo": c.photo, "inCall": c.in_call, "mic": c.mic, "cam": c.cam, "screen": c.screen})
+    json!({"id": id, "name": c.name, "photo": c.photo, "status": c.status, "presence": c.presence, "inCall": c.in_call, "mic": c.mic, "cam": c.cam, "screen": c.screen})
 }
 fn peer_msg(id: &str, c: &Client) -> Value {
     let mut p = pubc(id, c);
@@ -112,6 +124,8 @@ fn handle(hub: &Shared, id: &str, tx: &UnboundedSender<Message>, room: &mut Opti
             tx: tx.clone(),
             name: clean_name(&s("name")),
             photo: clean_photo(&s("photo")),
+            status: clean_status(&s("status")),
+            presence: clean_pres(&s("presence")),
             in_call: false,
             mic: false,
             cam: false,
@@ -134,6 +148,8 @@ fn handle(hub: &Shared, id: &str, tx: &UnboundedSender<Message>, room: &mut Opti
             if let Some(c) = r.clients.get_mut(id) {
                 c.name = clean_name(&s("name"));
                 c.photo = clean_photo(&s("photo"));
+                c.status = clean_status(&s("status"));
+                c.presence = clean_pres(&s("presence"));
             }
             if let Some(c) = r.clients.get(id) {
                 let p = peer_msg(id, c);
@@ -233,6 +249,32 @@ async fn root(ws: Option<WebSocketUpgrade>, State(hub): State<Shared>) -> Respon
 }
 
 
+// ----- convite: liga/desliga o túnel (só o app pode mandar; quem vem de fora do túnel não) -----
+fn from_app(h: &HeaderMap) -> bool {
+    h.contains_key("x-ame") && !h.contains_key("cf-connecting-ip") && !h.contains_key("x-forwarded-for") && !h.contains_key("cf-ray")
+}
+fn tunnel_json() -> axum::Json<Value> {
+    let (status, url, msg, available) = tunnel::snapshot();
+    axum::Json(json!({"status": status, "url": url, "msg": msg, "available": available}))
+}
+async fn tunnel_get() -> axum::Json<Value> {
+    tunnel_json()
+}
+async fn tunnel_start(headers: HeaderMap) -> Response {
+    if !from_app(&headers) {
+        return StatusCode::FORBIDDEN.into_response();
+    }
+    tunnel::start(PORT_NOW.load(Ordering::SeqCst) as u16);
+    tunnel_json().into_response()
+}
+async fn tunnel_stop(headers: HeaderMap) -> Response {
+    if !from_app(&headers) {
+        return StatusCode::FORBIDDEN.into_response();
+    }
+    tunnel::stop();
+    tunnel_json().into_response()
+}
+
 fn start_server() -> u16 {
     let (tx, rx) = std::sync::mpsc::channel();
     std::thread::spawn(move || {
@@ -242,8 +284,15 @@ fn start_server() -> u16 {
                 Ok(l) => l,
                 Err(_) => tokio::net::TcpListener::bind(("127.0.0.1", 0)).await.unwrap(),
             };
-            let _ = tx.send(l.local_addr().unwrap().port());
-            let app = Router::new().route("/", get(root)).with_state(Shared::default());
+            let port = l.local_addr().unwrap().port();
+            PORT_NOW.store(port as u64, Ordering::SeqCst);
+            let _ = tx.send(port);
+            let app = Router::new()
+                .route("/", get(root))
+                .route("/tunnel", get(tunnel_get))
+                .route("/tunnel/start", post(tunnel_start))
+                .route("/tunnel/stop", post(tunnel_stop))
+                .with_state(Shared::default());
             let _ = axum::serve(l, app).await;
         });
     });
@@ -269,7 +318,8 @@ fn main() {
 
     let port = start_server();
     let url = remote_url().unwrap_or_else(|| format!("http://localhost:{port}"));
-    let event_loop = EventLoop::new();
+    let event_loop = tao::event_loop::EventLoopBuilder::<()>::with_user_event().build();
+    let proxy = event_loop.create_proxy();
     let icon = Icon::from_rgba(include_bytes!("../icon64.rgba").to_vec(), 64, 64).ok();
     let window = WindowBuilder::new()
         .with_title("AME LIVE! OVERDOSE")
@@ -287,12 +337,18 @@ fn main() {
             }
             false
         })
+        .with_ipc_handler(move |req: wry::http::Request<String>| {
+            if req.body() == "quit" {
+                let _ = proxy.send_event(());
+            }
+        })
         .build(&window)
         .unwrap();
 
     event_loop.run(move |event, _, flow| {
         *flow = ControlFlow::Wait;
-        if let Event::WindowEvent { event: WindowEvent::CloseRequested, .. } = event {
+        if matches!(event, Event::UserEvent(()) | Event::WindowEvent { event: WindowEvent::CloseRequested, .. }) {
+            tunnel::kill();
             *flow = ControlFlow::Exit;
         }
     });

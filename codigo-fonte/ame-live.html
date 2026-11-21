@@ -3,153 +3,277 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#2a1250">
-<title>AME LIVE! OVERDOSE</title>
+<meta name="theme-color" content="#f3d3f5">
+<title>AME! LIVE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=VT323&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=M+PLUS+Rounded+1c:wght@400;700;800&family=Fredoka:wght@600;700&display=swap" rel="stylesheet">
 <style>
-:root{--ink:#1b0a33;--pink:#ff5fa2;--hot:#ff2f86;--baby:#8fd3ff;--lav:#c9a5ff;--paper:#fff0f8;--yellow:#fff27a;--font:"DotGothic16","VT323","Courier New",monospace}
-*{box-sizing:border-box}
-html,body{height:100%;margin:0}
-body{font-family:var(--font);font-size:14px;color:var(--ink);image-rendering:pixelated;
-background:
- linear-gradient(45deg,#3a1a6e 25%,transparent 25%,transparent 75%,#3a1a6e 75%) 0 0/16px 16px,
- linear-gradient(45deg,#3a1a6e 25%,transparent 25%,transparent 75%,#3a1a6e 75%) 8px 8px/16px 16px,#2a1250}
-button,input{font:inherit;color:inherit}button{cursor:pointer}
-.app{height:100%;display:grid;grid-template-columns:150px minmax(0,1fr) 250px;grid-template-rows:auto minmax(0,1fr) auto;gap:10px;padding:10px}
-.win{background:var(--paper);border:3px solid #000;box-shadow:5px 5px 0 #000;display:flex;flex-direction:column;min-height:0;min-width:0}
-.bar{display:flex;align-items:center;justify-content:space-between;gap:8px;padding:4px 6px;color:#fff;background:repeating-linear-gradient(90deg,var(--pink) 0 4px,#ff7ab5 4px 8px);border-bottom:3px solid #000;text-shadow:1px 1px 0 #000;font-size:13px}
-.bar i{display:flex;gap:3px;font-style:normal}.bar i b{width:14px;height:14px;background:var(--paper);border:2px solid #000;display:block;color:#000;text-shadow:none;font-size:9px;line-height:10px;text-align:center}
-.bar.blue{background:repeating-linear-gradient(90deg,#5bb8ff 0 4px,var(--baby) 4px 8px)}
-.bar.lav{background:repeating-linear-gradient(90deg,#a56bff 0 4px,var(--lav) 4px 8px)}
-.body{padding:10px;min-height:0;overflow:auto;flex:1}
-header.win{grid-column:1/-1;flex-direction:row;align-items:center;justify-content:space-between;padding:6px 10px;background:var(--ink);color:#fff;border-color:var(--pink);box-shadow:5px 5px 0 #000}
-.brand{font-size:22px;letter-spacing:1px;text-shadow:2px 2px 0 var(--hot)}.brand span{color:var(--yellow)}
-.user{display:flex;align-items:center;gap:8px;font-size:13px}
-.btn{background:var(--paper);border:3px solid #000;box-shadow:3px 3px 0 #000;padding:6px 10px;color:var(--ink)}
-.btn:hover{background:var(--yellow)}.btn:active{box-shadow:0 0 0 #000;transform:translate(3px,3px)}
-.btn:focus-visible,input:focus-visible{outline:3px dashed var(--hot);outline-offset:2px}
-.btn.on{background:var(--pink);color:#fff;text-shadow:1px 1px 0 #000}.btn.share.on{background:var(--baby);color:var(--ink);text-shadow:none}.btn.leave{background:var(--hot);color:#fff;text-shadow:1px 1px 0 #000}
-aside.rooms{grid-row:2/4}
-.room{display:block;width:100%;text-align:left;border:0;background:transparent;padding:7px 6px;margin:2px 0;color:var(--ink)}
-.room:hover{background:#ffd9ec}.room.active{background:var(--ink);color:var(--yellow)}.room .h{color:var(--hot)}.room.active .h{color:var(--pink)}
-.invite{width:100%;margin-top:12px;background:#fff;border:3px dashed var(--hot);padding:8px;color:var(--hot)}
-.sticker{margin-top:14px;text-align:center;font-size:26px;line-height:1.2;color:var(--hot)}.sticker small{display:block;font-size:11px;color:var(--ink)}
-main{grid-column:2;grid-row:2;min-width:0;min-height:0;display:flex;flex-direction:column;gap:10px}
-.tophead{display:flex;justify-content:space-between;align-items:center;gap:8px}.tophead h1{margin:0;font-size:20px}.tophead p{margin:2px 0 0;font-size:12px;color:#7a5a8a}
-.livebadge{background:var(--hot);color:#fff;border:3px solid #000;padding:3px 8px;animation:blink 1s steps(2) infinite}
-@keyframes blink{50%{opacity:.35}}
-.preview{background:linear-gradient(135deg,var(--baby),#ffc4e1);padding:12px;display:grid;place-items:center;border-bottom:3px solid #000;flex:1;min-height:340px}
-.shared{width:100%;height:100%;background:#fff;border:3px solid #000;box-shadow:5px 5px 0 #000;display:flex;flex-direction:column}
-.shared-top{background:var(--ink);color:#fff;padding:3px 8px;font-size:12px}
-.shared-body{flex:1;padding:12px;display:grid;grid-template-columns:1fr 170px;gap:10px;min-height:0;position:relative}
-.screen{position:relative;border:3px solid #000;background:repeating-conic-gradient(#ffd0e6 0 25%,#fff 0 50%) 0 0/16px 16px;display:grid;place-items:center;overflow:hidden;min-height:0}
+:root{--ink:#5b3b8c;--soft:#8a6cb8;--pink:#ff6fae;--pink2:#ffd0e8;--lav:#e9d3fb;--line:#c99cf2;--font:"M PLUS Rounded 1c","Trebuchet MS","Segoe UI",sans-serif;--pix:"DotGothic16","M PLUS Rounded 1c",monospace}
+*{box-sizing:border-box}html,body{height:100%;margin:0}
+body{font-family:var(--font);font-size:14px;color:var(--ink);background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cg opacity='.6'%3E%3Cg transform='rotate(35 50 50)'%3E%3Crect x='28' y='42' width='46' height='16' rx='8' fill='%23ff9fcf'/%3E%3Crect x='51' y='42' width='23' height='16' rx='8' fill='%23fff'/%3E%3C/g%3E%3Cg transform='rotate(-30 160 150)'%3E%3Crect x='138' y='142' width='46' height='16' rx='8' fill='%23c7a6ff'/%3E%3Crect x='161' y='142' width='23' height='16' rx='8' fill='%23fff'/%3E%3C/g%3E%3Cpath d='M150 44l-9-9a6 6 0 019-8 6 6 0 019 8z' fill='%23ff8fc3'/%3E%3Cpath d='M40 176l-7-7a5 5 0 017-6 5 5 0 017 6z' fill='%23ffc2e0'/%3E%3Cpath d='M112 100l3 7 7 3-7 3-3 7-3-7-7-3 7-3z' fill='%23fff'/%3E%3C/g%3E%3C/svg%3E"),linear-gradient(180deg,#fbdcf0,#e3d6fb)}
+button,input{font:inherit;color:inherit}button{cursor:pointer}[hidden]{display:none!important}
+.ic{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.ic.sm{width:26px;height:26px}.ic.lg{width:56px;height:56px}
+.app{height:100%;display:grid;grid-template-columns:270px minmax(0,1fr) 300px;grid-template-rows:auto minmax(0,1fr);gap:12px;padding:12px}
+.app.nochat{grid-template-columns:270px minmax(0,1fr)}.app.nochat aside.chat{display:none}
+.win{background:#ffffffb8;border:2px solid var(--line);border-radius:12px;display:flex;flex-direction:column;min-height:0;min-width:0;box-shadow:0 3px 0 #e6c4f7;overflow:hidden}
+.bar{display:flex;align-items:center;gap:8px;padding:7px 10px;background:linear-gradient(#fbe3f6,#efd8fb);border-bottom:2px solid var(--line);font-weight:700}
+.bar small{font-weight:400;color:var(--soft);font-size:12px;margin-right:auto}.bar>span:first-of-type{margin-right:auto}.bar small+*{margin-left:0}
+.bar i{display:flex;font-style:normal;margin-left:auto}.bar i b{width:24px;height:24px;border:2px solid var(--line);border-radius:6px;background:#fff;text-align:center;line-height:18px;font-size:14px;cursor:pointer}
+.body{padding:12px;min-height:0;overflow:auto;flex:1}
+header.top{grid-column:1/-1;background:#ffffffb8;border:2px solid var(--line);border-radius:12px;padding:6px 12px;box-shadow:0 3px 0 #e6c4f7}
+.logo{display:flex;align-items:center;gap:10px;margin-bottom:4px}.logo-t{font-family:var(--pix);font-size:26px;color:#b45be0;text-shadow:2px 2px 0 #fff}.logo-t i{color:var(--pink);font-style:normal}
+.tabs{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.tab{border:0;background:transparent;padding:9px 16px;border-radius:8px 8px 0 0;font-weight:700;display:flex;gap:6px;align-items:center;color:var(--ink)}
+.tab:hover{background:#fbe6f7}.tab.active{background:#f8c9ec;border-bottom:3px solid var(--pink)}
+.net{margin-left:auto;font-size:13px;color:#e0709e}.net.on{color:#2fae6b}
+.chip{display:flex;align-items:center;gap:8px;background:#fff;border:2px solid var(--line);border-radius:10px;padding:3px 10px 3px 4px;font-weight:700}
+.chip:hover{background:#fff4fb}
+.av{display:inline-grid;place-items:center;width:32px;height:32px;border:2px solid var(--line);border-radius:8px;background:#f3d9ff center/cover;image-rendering:pixelated;flex:none;font-weight:700;color:#fff;text-shadow:1px 1px 0 var(--ink);overflow:hidden}
+.av.big{width:56px;height:56px;font-size:24px}.av.huge{width:104px;height:104px;font-size:44px;border-radius:12px}.av.med{width:42px;height:42px;font-size:18px}
+aside.side{grid-row:2}.side .body{padding:0;display:flex;flex-direction:column}
+.brandcard{display:flex;align-items:center;gap:12px;margin:12px;padding:10px;border:2px dashed var(--line);border-radius:12px;background:#fff7fd;color:#b45be0}
+.brandcard b{font-family:var(--pix);font-size:19px;display:block;color:#b45be0}.brandcard small{color:var(--soft);font-size:12px;line-height:1.3;display:block}
+.sec{display:flex;align-items:center;justify-content:space-between;padding:8px 14px;font-weight:800}
+.plus{width:26px;height:26px;border:2px solid var(--line);border-radius:7px;background:#fff;font-weight:800;line-height:1}.plus:hover{background:var(--pink2)}
+.srv{margin:0 10px 4px;padding:9px 12px;border-radius:8px;background:#f1d6fb;font-weight:700}
+.room{display:block;width:calc(100% - 20px);margin:1px 10px;text-align:left;border:0;background:transparent;padding:7px 12px;border-radius:8px;color:var(--ink)}
+.room:hover{background:#fbe6f7}.room.active{background:#f8c9ec;font-weight:700}.room .h{color:var(--soft);margin-right:6px;font-weight:800}
+#people{padding:0 10px;overflow:auto}.friend{position:relative;display:flex;align-items:center;gap:10px;padding:6px 4px}
+.friend b{display:block;font-size:13px}.friend small{color:#3aa86b;font-size:12px}
+.friend .dot{position:absolute;left:34px;top:34px;width:12px;height:12px;border-radius:50%;border:2px solid #fff;background:#3dd68c}.friend .dot.call{background:#ff9f43}
+.side-foot{margin-top:auto;display:flex;align-items:flex-end;gap:8px;padding:10px 12px}
+.bow{width:58px;height:40px;flex:none}
+.bubble{position:relative;text-align:left;background:#fff;border:2px solid var(--line);border-radius:12px;padding:8px 12px;font-weight:700;font-size:13px}
+.bubble small{display:block;font-weight:400;color:var(--soft)}.bubble:hover{background:var(--pink2)}
+.bubble::after{content:"";position:absolute;left:-8px;bottom:12px;border:7px solid transparent;border-right-color:var(--line);border-left:0}
+section.stage{grid-row:2}
+.live{display:flex;align-items:center;gap:6px;background:#fff;border:2px solid var(--line);border-radius:8px;padding:3px 10px;font-weight:700;font-size:13px}
+.live .rec{width:12px;height:12px;border-radius:50%;background:var(--pink);display:block;animation:blink 1s steps(2) infinite}.live.off .rec{background:#c9b6dd;animation:none}
+@keyframes blink{50%{opacity:.3}}
+.meter{display:flex;align-items:flex-end;gap:2px;height:20px;border:2px solid var(--line);border-radius:8px;padding:2px 6px;background:#fff}
+.meter b{width:4px;background:#e1d1f2;display:block}.meter b:nth-child(1){height:20%}.meter b:nth-child(2){height:28%}.meter b:nth-child(3){height:38%}.meter b:nth-child(4){height:48%}.meter b:nth-child(5){height:60%}.meter b:nth-child(6){height:72%}.meter b:nth-child(7){height:86%}.meter b:nth-child(8){height:100%}.meter b.on{background:#2f9bff}
+.preview{position:relative;flex:1;min-height:260px;margin:10px;border:2px solid var(--line);border-radius:10px;overflow:hidden;background:repeating-conic-gradient(#fde3f3 0 25%,#fff 0 50%) 0 0/28px 28px}
+.screen{position:absolute;inset:0;display:grid;place-items:center}
 .screen video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#000;display:none}
 .screen.live video{display:block}.screen.live .ph{display:none}
-.ph{background:var(--paper);border:3px solid #000;padding:6px 10px;text-align:center}
-.tiles{display:grid;grid-template-rows:auto;align-content:start;gap:10px;min-height:0}
-.tile{border:3px solid #000;background:var(--lav);display:grid;place-items:center;text-align:center;font-size:12px;position:relative;overflow:hidden;min-height:0}
-.tile{aspect-ratio:1}.tile .me{padding:4px}
-.av{display:inline-grid;place-items:center;width:30px;height:30px;border:3px solid #000;background:var(--lav) center/cover;image-rendering:pixelated;flex:none;font-size:15px;color:#fff;text-shadow:1px 1px 0 #000;overflow:hidden}
-.av.big{width:76px;height:76px;font-size:34px}.av.huge{width:104px;height:104px;font-size:44px}
-.modal{position:fixed;inset:0;background:#1b0a33cc;display:grid;place-items:center;z-index:20;padding:14px}
-.modal .win{width:min(380px,100%)}.prow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0}
-.modal label.lb{display:block;margin-top:6px}.modal input[type=text]{width:100%;border:3px solid #000;padding:8px;background:#fff;margin-top:4px}
-.messages:empty::before{content:"Nenhuma mensagem ainda ✦";color:#7a5a8a;font-size:12px}
-.tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);display:none}
+.ph{text-align:center;font-weight:700;padding:10px}.ph p{margin:8px 0 0}.mon{width:92px;height:92px}
+.tiles{position:absolute;right:10px;bottom:10px;display:flex;gap:8px;max-width:calc(100% - 20px);overflow-x:auto;z-index:2}
+.tile{position:relative;flex:none;width:104px;height:104px;border:2px solid var(--line);border-radius:10px;background:#f3e1ff;display:grid;place-items:center;text-align:center;font-size:12px;overflow:hidden}
+.tile .me{padding:4px}.tile video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform:scaleX(-1);display:none}
 .tile.live video{display:block}.tile.live span{display:none}
-.stagefoot{display:flex;justify-content:space-between;padding:6px 10px;font-size:12px}
-.meter{display:flex;gap:2px;align-items:flex-end;height:14px}.meter b{width:6px;height:100%;background:#d9c2e8;border:1px solid #000}.meter b.on{background:var(--hot)}
+.sources{display:flex;gap:8px;padding:0 10px 10px;flex-wrap:wrap}
+.src{flex:1 1 110px;display:flex;align-items:center;justify-content:center;gap:8px;padding:10px;background:#fff;border:2px solid var(--line);border-radius:8px;font-weight:700}
+.src:hover{background:#fff4fb}.src.on{background:var(--pink2);border-color:#ff8fc3}
+.controls{display:flex;align-items:center;justify-content:center;gap:14px;padding:6px 14px 14px;position:relative}
+.status{margin-right:auto;font-size:12px;color:var(--soft);display:flex;align-items:center;gap:8px;min-width:0}
+.rbtn{width:54px;height:54px;border-radius:50%;border:2px solid var(--line);background:#f1dcff;color:var(--ink);display:grid;place-items:center}
+.rbtn:hover{background:#fbe0f2}.rbtn.on{background:#ff9fcf;color:#fff;border-color:#ff7fb8}
+.rbtn.big{width:74px;height:74px;background:var(--pink);color:#fff;border-color:#ff4f9b}.rbtn.big.go{background:#6fd8a2;border-color:#45bf86}.rbtn.big .ic{width:30px;height:30px}.rbtn.go .ic{transform:rotate(135deg)}
+.rbtn.plain{background:transparent;border-color:transparent;width:40px;height:40px}
+aside.chat{grid-row:2}.sys{padding:12px;color:var(--soft);font-size:13px;line-height:1.6}
+.messages{flex:1;min-height:0;overflow:auto;padding:0 12px 10px;display:flex;flex-direction:column;gap:10px}
+.message{display:flex;gap:8px;line-height:1.4;overflow-wrap:anywhere;font-size:13px}.message .t{min-width:0}.message strong{display:block;color:#d6458b}
+.compose{display:flex;gap:6px;padding:10px;border-top:2px solid var(--line);position:relative}
+.compose input{min-width:0;flex:1;border:2px solid var(--line);border-radius:8px;padding:9px;background:#fff}
+.ebtn{border:0;background:transparent;width:34px}.send{width:42px;border:0;border-radius:8px;background:var(--pink);color:#fff;display:grid;place-items:center}
+.emojipop{position:absolute;right:10px;bottom:62px;background:#fff;border:2px solid var(--line);border-radius:10px;padding:8px;display:flex;flex-wrap:wrap;gap:4px;max-width:220px;z-index:5}
+.emojipop button{border:0;background:#fbeaf6;border-radius:6px;padding:4px 8px}.emojipop button:hover{background:var(--pink2)}
+.btn{background:#fff;border:2px solid var(--line);border-radius:8px;padding:7px 12px;color:var(--ink);font-weight:700}
+.btn:hover{background:var(--pink2)}.btn.on{background:var(--pink);color:#fff;border-color:#ff4f9b}
+.btn:focus-visible,input:focus-visible,.rbtn:focus-visible,.src:focus-visible,.tab:focus-visible,.room:focus-visible{outline:3px dashed var(--pink);outline-offset:2px}
+.modal{position:fixed;inset:0;background:#5b3b8c66;display:grid;place-items:center;z-index:20;padding:14px}
+.modal .win{width:min(390px,100%)}.prow{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:10px 0}
+.modal label.lb{display:block;margin-top:6px;font-weight:700}.modal input[type=text]{width:100%;border:2px solid var(--line);border-radius:8px;padding:9px;background:#fff;margin-top:4px}
+.toast{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:10px;padding:9px 14px;opacity:0;pointer-events:none;z-index:30;transition:opacity .2s}.toast.show{opacity:1}
+@media(max-width:1000px){.app{grid-template-columns:230px minmax(0,1fr);grid-template-rows:auto minmax(480px,1fr) auto}aside.chat{grid-column:1/-1;grid-row:3;height:320px}.app.nochat{grid-template-columns:230px minmax(0,1fr)}}
+@media(max-width:700px){html,body{height:auto}.app{height:auto;grid-template-columns:1fr}.app.nochat{grid-template-columns:1fr}aside.side,section.stage,aside.chat{grid-column:1}aside.side{grid-row:2;max-height:230px}section.stage{grid-row:3;min-height:560px}aside.chat{grid-row:4}.brandcard,#people,.sec:nth-of-type(2),.side-foot{display:none}.logo-t{font-size:20px}.controls{gap:8px;flex-wrap:wrap}.rbtn{width:48px;height:48px}.tile{width:84px;height:84px}}
+@media(prefers-reduced-motion:reduce){.live .rec{animation:none}}
+.who{display:flex;flex-direction:column;text-align:left;line-height:1.15}.who small{color:var(--soft);font-size:11px;font-weight:400;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pdot{width:11px;height:11px;border-radius:50%;background:#3dd68c;border:2px solid #fff;box-shadow:0 0 0 1px var(--line)}
+.pdot.away,.friend .dot.away{background:#ff9f43}.pdot.busy,.friend .dot.busy{background:#ff5c8a}
+.friend small.away{color:#e08a1e}.friend small.busy{color:#d6458b}
+.modal select{width:100%;border:2px solid var(--line);border-radius:8px;padding:9px;background:#fff;margin-top:4px}
 
-aside.chat{grid-column:3;grid-row:2}
-.messages{display:flex;flex-direction:column;gap:10px;background:#fff;border-bottom:3px solid #000}
-.message{display:flex;gap:8px;line-height:1.4;overflow-wrap:anywhere;font-size:13px}.message .t{min-width:0}.message strong{display:block;color:var(--hot)}
-.compose{padding:8px;display:flex;gap:6px}.compose input{min-width:0;flex:1;border:3px solid #000;padding:7px;background:#fff}
-footer.win{grid-column:2/4;grid-row:3;flex-direction:row;align-items:center;gap:8px;padding:8px 10px;background:#ffd9ec;flex-wrap:wrap}
-.status{margin-right:auto;font-size:12px}
-.toast{position:fixed;bottom:84px;left:50%;transform:translateX(-50%);background:var(--ink);color:var(--yellow);border:3px solid var(--pink);padding:8px 12px;opacity:0;pointer-events:none;z-index:9;transition:opacity .15s steps(3)}.toast.show{opacity:1}
-[hidden]{display:none!important}
-@media(max-width:900px){
- html,body{height:auto}.app{height:auto;grid-template-columns:150px minmax(0,1fr);grid-template-rows:auto auto auto auto}
- aside.rooms{grid-column:1;grid-row:2}main{grid-column:2;grid-row:2}aside.chat{grid-column:1/-1;grid-row:3;height:320px}footer.win{grid-column:1/-1;grid-row:4}.preview{min-height:260px}}
-@media(max-width:560px){
- .app{grid-template-columns:1fr;gap:12px}header.win,aside.rooms,main,aside.chat,footer.win{grid-column:1}
- aside.rooms{grid-row:2}main{grid-row:3}aside.chat{grid-row:4}footer.win{grid-row:5}
- aside.rooms .body{display:flex;gap:4px;overflow:auto;align-items:center}.room{width:auto;white-space:nowrap}.invite,.sticker{display:none}
- .brand{font-size:16px}.user{font-size:11px}.btn{flex:1 1 45%}.shared-body{grid-template-columns:1fr 80px;padding:8px}}
-@media(prefers-reduced-motion:reduce){.livebadge{animation:none}}
-#roomList{display:contents}.newroom{width:100%;margin-top:10px;background:var(--yellow)}
-@media(max-width:560px){.newroom{width:auto;margin:0;white-space:nowrap;flex:none}}
-.net{font-size:12px;color:#ff9ec8}.net.on{color:#7dffb0}.tiles{overflow:auto}
+.home{position:fixed;inset:0;z-index:15;overflow:hidden;background:linear-gradient(180deg,#f9d9f1,#ddd3fb 55%,#cdd0f7)}
+.home::before{content:"";position:absolute;inset:0;background:repeating-conic-gradient(#ffffff55 0 25%,#fff0 0 50%) 0 0/64px 64px}
+.home>*{position:absolute}.sky{left:0;bottom:0;width:100%;height:62%}
+.home-top{left:28px;top:18px;display:flex;align-items:center;gap:10px}
+.hmenu{left:5vw;top:22vh;width:min(440px,90vw);display:flex;flex-direction:column;gap:clamp(8px,1.6vh,16px)}
+.hbtn{position:relative;display:flex;align-items:center;justify-content:center;height:clamp(50px,8.2vh,74px);border:3px solid #8a82e0;border-radius:10px;background:#f7ecff;color:var(--ink);font-family:var(--pix);font-size:clamp(17px,2.6vh,23px);box-shadow:0 3px 0 #cdb4f4}
+.hbtn .ic{position:absolute;left:30px;width:32px;height:32px}.hbtn i{position:absolute;right:22px;font-style:normal;color:#8a3b9a}
+.hbtn:hover{background:#fff}.hbtn.main{background:linear-gradient(#ff9ccf,#ff7dbd)}
+.hero{left:38vw;top:12vh;width:58vw;display:flex;flex-direction:column;align-items:center}
+.hero-row{display:flex;align-items:center;gap:2vw}.bigtv{width:clamp(110px,15vw,230px)}
+.wordmark{display:flex;flex-direction:column;line-height:.85;transform:rotate(-4deg);font-family:Fredoka,"M PLUS Rounded 1c",sans-serif;font-weight:700}
+.wordmark b{font-size:clamp(60px,11vw,170px);-webkit-text-stroke:8px #fff;paint-order:stroke fill}
+.w1{color:#ff8ac6;text-shadow:0 7px 0 #d9609f}.w2{color:#98a0f2;margin-left:6vw;text-shadow:0 7px 0 #6670d4}
+.tagline{margin-top:2vh;padding:10px 40px;background:#fff;border:3px solid #8a82e0;border-radius:30px;font-weight:700;transform:rotate(-5deg)}
+.pop{width:min(330px,86vw)}.welcome{right:28px;top:34px}.about-pop{left:28px;bottom:28px;width:min(500px,90vw)}
+.pop .bar{background:linear-gradient(#f7dff8,#e8d6fb)}.pop .pb{padding:14px 16px;line-height:1.6;color:var(--soft)}
+.polaroid{right:34px;bottom:30px;width:min(340px,30vw);transform:rotate(5deg);background:#fff;border:3px solid #cbbcf2;border-radius:10px;padding:10px;box-shadow:0 4px 0 #d6c3f6}
+.polaroid .pic{width:100%;display:block;border-radius:6px}.envelope{position:absolute;right:-26px;bottom:-34px;width:110px}
+.deco{position:absolute;pointer-events:none;user-select:none}.pill{width:60px;height:22px;border-radius:11px;background:linear-gradient(90deg,#ff9fcf 50%,#fff 50%);border:2px solid #fff}
+.choice{display:grid;grid-template-columns:1fr 1fr;gap:12px}.cbtn{display:flex;flex-direction:column;align-items:center;gap:6px;padding:16px 10px;border:2px solid var(--line);border-radius:12px;background:#fff7fd;font-weight:800;font-size:17px}
+.cbtn:hover{background:var(--pink2)}.cbtn small{font-weight:400;color:var(--soft);font-size:12px;text-align:center}.cbtn .ic{width:34px;height:34px}
+.friend{cursor:pointer;border-radius:8px}.friend:hover{background:#fbe6f7}.friend.sel{background:#f8c9ec}
+.tile{cursor:pointer}.modal .hint{margin:6px 0;font-size:12px;color:#7a5a8a;line-height:1.5}
+@media(max-width:900px){.hero{left:0;right:0;width:100%;top:auto;bottom:16vh}.hmenu{top:12vh}.about-pop,.polaroid,.welcome{display:none}.bigtv{width:90px}.wordmark b{font-size:15vw}}
+.volpop{position:absolute;right:12px;bottom:100px;width:min(280px,calc(100% - 24px));background:#fff;border:2px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:12px;z-index:6;box-shadow:0 3px 0 #e6c4f7}
+.volpop label{display:flex;flex-wrap:wrap;justify-content:space-between;font-weight:700;font-size:13px;gap:4px}.volpop label b{color:var(--soft);font-weight:700}
+.volpop input[type=range]{width:100%;accent-color:#ff6fae}
 </style>
 </head>
 <body>
-<div class="app">
- <header class="win"><div class="brand">AME LIVE! <span>OVERDOSE</span></div><div class="user"><span id="netState" class="net">● offline</span><span class="av" data-av></span><b data-name>amelia</b><button class="btn" id="editName">Editar perfil</button></div></header>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<symbol id="i-tv" viewBox="0 0 24 24"><path d="M7 3l5 3 5-3"/><rect x="2" y="6" width="20" height="14" rx="2.5" fill="#bfe6ff"/><path d="M12 17.5l-4-4a2.4 2.4 0 013.4-3.4l.6.6.6-.6a2.4 2.4 0 013.4 3.4z" fill="#ff6fae" stroke="#ff6fae"/></symbol>
+<symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0014 0M12 18v3"/></symbol>
+<symbol id="i-cam" viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3z"/></symbol>
+<symbol id="i-phone" viewBox="0 0 24 24"><path d="M3 14c5-6 13-6 18 0l-2.5 2.5-3.2-1.6v-2.6a9 9 0 00-6.6 0v2.6l-3.2 1.6z"/></symbol>
+<symbol id="i-screen" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="12" rx="2"/><path d="M8 20h8M12 16v4"/></symbol>
+<symbol id="i-win" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18"/></symbol>
+<symbol id="i-spk" viewBox="0 0 24 24"><path d="M4 9h4l5-4v14l-5-4H4z"/><path d="M16 9a4 4 0 010 6M18.5 6.5a8 8 0 010 11"/></symbol>
+<symbol id="i-smile" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 14a4 4 0 008 0"/><path d="M9 10h.01M15 10h.01"/></symbol>
+<symbol id="i-gear" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M5 5l2 2M17 17l2 2M19 5l-2 2M7 17l-2 2"/></symbol>
+<symbol id="i-send" viewBox="0 0 24 24"><path d="M4 12l16-8-6 16-3-7z"/></symbol>
+<symbol id="i-bow" viewBox="0 0 58 40"><path d="M29 20L6 6C2 12 2 28 6 34z M29 20l23-14c4 6 4 22 0 28z" fill="#ffb3d9" stroke="#e86fae" stroke-width="2.5" stroke-linejoin="round"/><rect x="24" y="14" width="10" height="12" rx="3" fill="#ff8fc3" stroke="#e86fae" stroke-width="2.5"/></symbol>
+<symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4l13 8-13 8z"/></symbol>
+<symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0116 0"/></symbol>
+<symbol id="i-info" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5h.01"/></symbol>
+<symbol id="i-exit" viewBox="0 0 24 24"><path d="M10 4H5v16h5M14 8l5 4-5 4M19 12H9"/></symbol>
+</defs></svg>
+<div class="app" id="app">
+ <header class="top">
+  <div class="logo"><svg class="ic sm"><use href="#i-tv"/></svg><span class="logo-t">AME! LIVE <i>♡</i></span></div>
+  <nav class="tabs">
+   <button class="tab" id="tabHome" type="button">⌂ Início</button>
+   <button class="tab active" type="button"><svg class="ic "><use href="#i-spk"/></svg> Transmissão</button>
+   <button class="tab" id="tabChat" type="button">Chat</button>
+   <button class="tab" id="tabInvite" type="button">Convidar</button>
+   <span id="netState" class="net">● offline</span>
+   <button class="chip" id="editName" type="button" title="Editar perfil"><span class="av" data-av></span><span class="who"><b data-name>anjinho</b><small data-status>online</small></span><span class="pdot" data-pdot></span> ▾</button>
+  </nav>
+ </header>
 
- <aside class="win rooms"><div class="bar blue"><span>salas.exe</span><i><b>x</b></i></div><div class="body">
-  <div id="roomList"></div>
-  <button class="btn newroom" id="newRoom" type="button">+ Criar sala</button>
-  <button class="invite" id="invite">+ Convidar alguém</button>
-  <div class="sticker">♡ ✦ ♡<small>sem você eu não sou nada</small></div>
+ <aside class="win side"><div class="body">
+  <div class="brandcard"><svg class="ic lg"><use href="#i-tv"/></svg><div><b>AME! LIVE ♡</b><small>Compartilhe<br>seu mundo! ♡</small></div></div>
+  <div class="sec"><span>♡ Usuários</span></div>
+  <div id="people"></div>
+  <div class="side-foot"><button class="bubble" id="invite" type="button">Vamos transmitir? ♡<small>Convidar alguém</small></button><svg class="bow"><use href="#i-bow"/></svg></div>
  </div></aside>
 
- <main>
-  <section class="win" style="flex:1">
-   <div class="bar"><span id="streamTitle">Transmissão de amelia</span><i><b>_</b><b>□</b><b>x</b></i></div>
-   <div class="preview"><div class="shared"><div class="shared-top" id="roomTitleTop">#sala-de-stream · <span id="streamState">Prévia da tela</span></div>
-    <div class="shared-body">
-     <div class="screen" id="screenBox"><video id="screenVideo" autoplay playsinline muted></video><div class="ph">Nenhuma tela<br>compartilhada ✦</div></div>
-     <div class="tiles" id="tiles"><div class="tile" id="camTile"><video id="camVideo" autoplay playsinline muted></video><span class="me"><span class="av big" data-av></span><br><b data-name>amelia</b><br>câmera desligada</span></div></div>
-    </div></div></div>
-   <div class="stagefoot"><span id="callState">Chamada pronta</span><span class="meter" id="meter" title="Nível do microfone"><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></span></div>
-  </section>
-  <div class="tophead"><div><h1 id="roomTitle">sala-de-stream</h1><p>Compartilhe o momento com a galera.</p></div><span class="livebadge">● AO VIVO</span></div>
- </main>
+ <section class="win stage">
+  <div class="bar"><svg class="ic sm"><use href="#i-tv"/></svg><span id="streamTitle">Transmissão de anjinho</span><small id="roomTitleTop">#geral · <span id="streamState">Prévia da tela</span></small><span class="live off" id="liveBadge"><i class="rec"></i> Offline</span><span class="meter" id="meter" title="Nível do microfone"><b></b><b></b><b></b><b></b><b></b><b></b><b></b><b></b></span></div>
+  <div class="preview">
+   <div class="screen" id="screenBox"><video id="screenVideo" autoplay playsinline muted></video><div class="ph"><svg class="mon" viewBox="0 0 48 48"><rect x="4" y="5" width="40" height="28" rx="3" fill="#bfe6ff" stroke="#8a6cb8" stroke-width="3"/><path d="M24 27l-8-8a4.6 4.6 0 016.6-6.6l1.4 1.4 1.4-1.4A4.6 4.6 0 0132 19z" fill="#ff6fae"/><path d="M16 43h16M24 33v10" stroke="#8a6cb8" stroke-width="3" stroke-linecap="round"/></svg><p id="phText">Selecione uma tela para transmitir!</p></div></div>
+   <div class="tiles" id="tiles"><div class="tile" id="camTile"><video id="camVideo" autoplay playsinline muted></video><span class="me"><span class="av big" data-av></span><br><b data-name>anjinho</b></span></div></div>
+  </div>
+  <div class="sources">
+   <button class="src" id="share" type="button"><svg class="ic"><use href="#i-screen"/></svg> <span id="shareLbl">Transmitir tela</span></button>
+   <button class="src" id="srcCam" type="button"><svg class="ic "><use href="#i-cam"/></svg> Câmera</button>
+   <button class="src on" id="srcAudio" type="button"><svg class="ic "><use href="#i-spk"/></svg> Áudio do PC</button>
+  </div>
+  <div class="controls">
+   <div class="status"><button class="rbtn plain" id="gear" type="button" title="Configurações" aria-label="Configurações"><svg class="ic "><use href="#i-gear"/></svg></button><span id="callStatus">Você ainda não entrou na chamada</span><span id="callState"></span></div>
+   <button class="rbtn" id="mic" type="button" title="Microfone" aria-label="Microfone"><svg class="ic "><use href="#i-mic"/></svg></button>
+   <button class="rbtn" id="camera" type="button" title="Câmera" aria-label="Câmera"><svg class="ic "><use href="#i-cam"/></svg></button>
+   <button class="rbtn big go" id="join" type="button" title="Entrar na chamada" aria-label="Entrar na chamada"><svg class="ic "><use href="#i-phone"/></svg></button>
+   <button class="rbtn big" id="leave" type="button" title="Sair da chamada" aria-label="Sair da chamada" hidden><svg class="ic "><use href="#i-phone"/></svg></button>
+   <div class="volpop" id="volPop" hidden>
+    <label>Meu microfone <b id="vMicV">100%</b><input type="range" id="vMic" min="0" max="200" value="100"></label>
+    <label>Vozes dos amigos <b id="vVoiceV">100%</b><input type="range" id="vVoice" min="0" max="100" value="100"></label>
+    <label>Som da transmissão <b id="vSoundV">100%</b><input type="range" id="vSound" min="0" max="100" value="100"></label>
+   </div>
+   <button class="rbtn" id="volBtn" type="button" title="Volume" aria-label="Volume"><svg class="ic"><use href="#i-spk"/></svg></button>
+   <button class="rbtn" id="emojiBtn2" type="button" title="Emojis" aria-label="Emojis"><svg class="ic "><use href="#i-smile"/></svg></button>
+  </div>
+ </section>
 
- <aside class="win chat"><div class="bar lav"><span>mensagens.txt</span><i><b>x</b></i></div>
-  <div class="body messages" id="messages"></div>
-  <form class="compose" id="messageForm"><input id="messageInput" placeholder="Escreva uma mensagem…" aria-label="Escreva uma mensagem" autocomplete="off"><button class="btn" type="submit">Enviar</button></form>
+ <aside class="win chat">
+  <div class="bar"><svg class="ic sm"><use href="#i-tv"/></svg><span>Chat ♡</span><small>#<b id="roomTitle">geral</b></small><i><b id="chatClose" title="Fechar chat">×</b></i></div>
+  <div class="sys">Bem-vinda ao AME! LIVE! ♡<br>Seja gentil com todo mundo~! ✦</div>
+  <div class="messages" id="messages"></div>
+  <form class="compose" id="messageForm"><div class="emojipop" id="emojiPop" hidden></div><input id="messageInput" placeholder="Digite uma mensagem…" aria-label="Escreva uma mensagem" autocomplete="off"><button class="ebtn" id="emojiBtn" type="button" aria-label="Emojis"><svg class="ic "><use href="#i-smile"/></svg></button><button class="send" type="submit" aria-label="Enviar"><svg class="ic "><use href="#i-send"/></svg></button></form>
  </aside>
-
- <footer class="win"><span class="status" id="callStatus">Você ainda não entrou na chamada</span>
-  <button class="btn" id="join">Entrar na chamada</button>
-  <button class="btn" id="mic">Microfone: desligado</button>
-  <button class="btn" id="camera">Câmera: desligada</button>
-  <button class="btn share" id="share">Compartilhar tela</button>
-  <button class="btn leave" id="leave" hidden>Sair</button>
- </footer>
+</div>
+<div class="home" id="home">
+ <svg class="sky" id="sky" viewBox="0 0 1600 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true"></svg>
+ <div class="home-top"><svg class="ic"><use href="#i-tv"/></svg><span class="logo-t" style="font-size:22px">AME! LIVE <i>♡</i></span></div>
+ <nav class="hmenu">
+  <button class="hbtn main" id="hStart" type="button"><svg class="ic"><use href="#i-play"/></svg><span>Iniciar</span><i>▶</i></button>
+  <button class="hbtn" id="hSettings" type="button"><svg class="ic"><use href="#i-gear"/></svg><span>Configurações</span></button>
+  <button class="hbtn" id="hProfile" type="button"><svg class="ic"><use href="#i-user"/></svg><span>Perfil</span></button>
+  <button class="hbtn" id="hAbout" type="button"><svg class="ic"><use href="#i-info"/></svg><span>Sobre o AME! LIVE</span></button>
+  <button class="hbtn" id="hQuit" type="button"><svg class="ic"><use href="#i-exit"/></svg><span>Sair</span></button>
+ </nav>
+ <div class="hero"><div class="hero-row">
+  <svg class="bigtv" viewBox="0 0 200 190"><path d="M70 42L50 14M112 42l22-28" stroke="#8f7bd6" stroke-width="5" stroke-linecap="round"/><circle cx="48" cy="11" r="7" fill="#e6dcff" stroke="#8f7bd6" stroke-width="4"/><circle cx="136" cy="12" r="7" fill="#e6dcff" stroke="#8f7bd6" stroke-width="4"/><rect x="12" y="42" width="176" height="122" rx="26" fill="#d4c6ff" stroke="#8f7bd6" stroke-width="6"/><rect x="30" y="58" width="124" height="90" rx="16" fill="#9db3f0" stroke="#7b8fdc" stroke-width="4"/><path d="M92 132l-24-24a14 14 0 0120-20l4 4 4-4a14 14 0 0120 20z" fill="#ffb6dc" stroke="#fff" stroke-width="3"/><circle cx="170" cy="90" r="5" fill="#ff8ac6"/><circle cx="170" cy="112" r="5" fill="#fff"/><path d="M68 166h64l10 14H58z" fill="#c9a0e8" stroke="#8f7bd6" stroke-width="4"/></svg>
+  <div class="wordmark"><b class="w1">AME!</b><b class="w2">LIVE</b></div></div>
+  <div class="tagline">Compartilhe seu mundo! ♡</div></div>
+ <div class="win pop welcome" id="welcomePop"><div class="bar"><span>♡ Bem-vinda!</span><i><b>×</b></i></div><div class="pb">Prepare-se para transmitir, conversar e se divertir! ♡</div></div>
+ <div class="win pop about-pop" id="aboutPop"><div class="bar"><span>♡ AME! LIVE</span><i><b>×</b></i></div><div class="pb">Um app de transmissão e comunicação feito especialmente para você! ♡</div></div>
+ <div class="polaroid"><svg class="pic" viewBox="0 0 300 200"><rect width="300" height="200" fill="#b7b9f3"/><path d="M205 36a26 26 0 1 0 22 36 20 20 0 1 1-22-36z" fill="#fff4c4"/><ellipse cx="90" cy="60" rx="38" ry="12" fill="#f3d3ee"/><g fill="#8f86d8"><rect x="20" y="120" width="30" height="80"/><rect x="56" y="100" width="26" height="100"/><rect x="88" y="130" width="34" height="70"/><rect x="128" y="108" width="24" height="92"/><rect x="160" y="124" width="36" height="76"/><rect x="204" y="96" width="28" height="104"/><rect x="238" y="126" width="40" height="74"/></g></svg>
+  <svg class="envelope" viewBox="0 0 120 80"><rect x="4" y="4" width="112" height="72" rx="8" fill="#ffc8e6" stroke="#ff8ac6" stroke-width="4"/><path d="M6 8l54 38 54-38" fill="none" stroke="#ff8ac6" stroke-width="4"/><path d="M60 62l-9-9a5 5 0 017-7l2 2 2-2a5 5 0 017 7z" fill="#ff6fae"/></svg></div>
 </div>
 <div class="modal" id="profileModal" hidden><div class="win"><div class="bar"><span>perfil.exe</span><i><b id="closeProfile">x</b></i></div><div class="body">
  <div class="prow"><span class="av huge" id="pvAv"></span><div><label class="btn" for="photoInput" style="display:inline-block">Escolher foto</label><input type="file" id="photoInput" accept="image/*" hidden><br><button class="btn" id="rmPhoto" type="button" style="margin-top:8px">Remover foto</button></div></div>
  <label class="lb" for="nameInput">Nome</label><input type="text" id="nameInput" maxlength="24" autocomplete="off">
+ <label class="lb" for="statusInput">Status personalizado</label><input type="text" id="statusInput" maxlength="30" placeholder="ex: assistindo anime ♡" autocomplete="off">
+ <label class="lb" for="presenceInput">Disponibilidade</label><select id="presenceInput"><option value="online">● online</option><option value="away">● ausente</option><option value="busy">● ocupada</option></select>
  <div class="prow"><button class="btn on" id="saveProfile" type="button">Salvar</button><button class="btn" id="cancelProfile" type="button">Cancelar</button></div>
 </div></div></div>
 <div class="modal" id="roomModal" hidden><div class="win"><div class="bar lav"><span>nova-sala.exe</span><i><b>x</b></i></div><div class="body">
- <label class="lb" for="roomInput">Nome da sala</label><input type="text" id="roomInput" maxlength="30" placeholder="ex: cantinho da ame" autocomplete="off">
+ <label class="lb" for="roomInput">Nome da sala</label><input type="text" id="roomInput" maxlength="30" placeholder="deixe em branco para um nome aleatório" autocomplete="off">
  <div class="prow"><button class="btn on" id="createRoom" type="button">Criar sala</button><button class="btn" id="cancelRoom" type="button">Cancelar</button></div>
 </div></div></div>
 <div class="modal" id="inviteModal" hidden><div class="win"><div class="bar blue"><span>convidar.exe</span><i><b>x</b></i></div><div class="body">
- <p style="margin:0 0 8px">Link da sala <b id="inviteRoom"></b></p><input type="text" id="inviteInput" readonly>
- <div class="prow"><button class="btn on" id="copyInvite" type="button">Copiar link</button><button class="btn" id="closeInvite" type="button">Fechar</button></div>
- <p style="margin:0;font-size:12px;color:#7a5a8a">Quem abrir esse link entra na mesma sala. Para amigos de fora, o servidor precisa estar num endereço público (https).</p>
+ <p style="margin:0 0 8px">Sala <b id="inviteRoom"></b></p>
+ <p id="inviteMsg" style="margin:0 0 8px;font-size:13px;line-height:1.5"></p>
+ <input type="text" id="inviteInput" readonly hidden>
+ <div id="codeBox" hidden><label class="lb" for="codeInput">Ou use o código da sala</label><div class="prow" style="margin:4px 0 10px"><input type="text" id="codeInput" readonly style="width:auto;flex:1 1 170px;min-width:0"><button class="btn" id="copyCode" type="button">Copiar código</button></div></div>
+ <div class="prow"><button class="btn on" id="startTunnel" type="button" hidden>Gerar link para amigos</button><button class="btn on" id="copyInvite" type="button" hidden>Copiar link</button><button class="btn" id="stopTunnel" type="button" hidden>Desligar link</button><button class="btn" id="closeInvite" type="button">Fechar</button></div>
+ <p style="margin:0;font-size:12px;color:#7a5a8a">Quem abrir o link entra direto pelo navegador, sem instalar nada. O vídeo vai do seu computador para cada pessoa, então funciona melhor com poucas pessoas.</p>
+</div></div></div>
+<div class="modal" id="joinModal" hidden><div class="win"><div class="bar lav"><span>entrar.exe</span><i><b>x</b></i></div><div class="body">
+ <label class="lb" for="joinInput">Link ou código da sala</label>
+ <input type="text" id="joinInput" placeholder="cole o link ou o código, ex: pink-heart-test.geral" autocomplete="off">
+ <p id="joinMsg" style="margin:8px 0;font-size:12px;line-height:1.5;color:#7a5a8a"></p>
+ <div class="prow"><button class="btn on" id="doJoin" type="button">Entrar</button><button class="btn" id="backHome" type="button" hidden>Voltar ao meu servidor</button><button class="btn" id="cancelJoin" type="button">Cancelar</button></div>
+</div></div></div>
+<div class="modal" id="startModal" hidden><div class="win"><div class="bar"><span>iniciar.exe</span><i><b>x</b></i></div><div class="body">
+ <p style="margin:0 0 12px;font-weight:700">O que você quer fazer?</p>
+ <div class="choice"><button class="cbtn" id="chJoin" type="button"><svg class="ic"><use href="#i-exit"/></svg>Entrar<small>com o link ou código de um amigo</small></button><button class="cbtn" id="chCreate" type="button"><svg class="ic"><use href="#i-tv"/></svg>Criar<small>uma sala nova para chamar amigos</small></button></div>
+</div></div></div>
+<div class="modal" id="settingsModal" hidden><div class="win"><div class="bar blue"><span>configurações.exe</span><i><b>x</b></i></div><div class="body">
+ <label class="lb" for="setMic">Microfone</label><select id="setMic"></select>
+ <label class="lb" for="setCam">Câmera</label><select id="setCam"></select>
+ <label class="lb" style="display:flex;gap:8px;align-items:center;margin-top:12px"><input type="checkbox" id="setPc" style="width:auto"> Compartilhar o áudio do PC ao transmitir a tela</label>
+ <p class="hint">Microfone e câmera: valem na próxima vez que você ligar. Os nomes dos aparelhos só aparecem depois da primeira permissão.</p>
+ <label class="lb" for="serverInput">Servidor online (avançado, opcional)</label><input type="text" id="serverInput" placeholder="vazio = servidor embutido no app" autocomplete="off">
+ <div class="prow"><button class="btn on" id="saveSettings" type="button">Salvar</button><button class="btn" id="cancelSettings" type="button">Cancelar</button></div>
+</div></div></div>
+<div class="modal" id="aboutModal" hidden><div class="win"><div class="bar lav"><span>sobre.exe</span><i><b>x</b></i></div><div class="body">
+ <p style="margin:0 0 8px;font-weight:800;font-size:17px">AME! LIVE ♡</p>
+ <p class="hint" style="font-size:13px">Um app de transmissão e comunicação feito especialmente para você. Transmita sua tela, converse por voz, vídeo e chat com os amigos, e chame todo mundo com um link ou código.</p>
+ <p class="hint">Versão 1.0 · O link para amigos usa o cloudflared (© Cloudflare, licença Apache-2.0).</p>
+ <div class="prow"><button class="btn" id="closeAbout" type="button">Fechar</button></div>
 </div></div></div>
 <div class="toast" id="toast" role="status"></div>
 
 <script>
 const $=s=>document.querySelector(s);
 let joined=false,micStream=null,camStream=null,screenStream=null,audioCtx=null,meterRaf=0,toastTimer;
-let profile={name:'amelia',photo:''};
-try{const p=JSON.parse(localStorage.getItem('ameProfile')||'null');if(p&&p.name)profile=p}catch{}
+let profile={name:'anjinho',photo:'',status:'',presence:'online'};const PRES={online:'online',away:'ausente',busy:'ocupada'};
+try{const p=JSON.parse(localStorage.getItem('ameProfile')||'null');if(p&&p.name)profile={...profile,...p};if(profile.name==='amelia'&&!profile.photo)profile.name='anjinho'}catch{}
 const name=()=>profile.name;
-let roomNames=['sala-de-stream','cantinho','modo-foco'];
+let roomNames=['geral','jogos','stream','memes','desenhos','chat-noturno'];
 try{const r=JSON.parse(localStorage.getItem('ameRooms')||'null');if(Array.isArray(r)&&r.length)roomNames=r}catch{}
 const rooms={};roomNames.forEach(n=>rooms[n]=[]);
 let room=roomNames[0];
 
-function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>e.classList.remove('show'),2200)}
+function toast(t){const e=$('#toast');e.textContent=t;e.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>e.classList.remove('show'),Math.max(2200,t.length*60))}
 function paintAv(el,p=profile){el.style.backgroundImage=p.photo?`url(${p.photo})`:'';el.textContent=p.photo?'':(p.name||'?').charAt(0).toUpperCase()}
-function renderProfile(){document.querySelectorAll('[data-av]').forEach(e=>paintAv(e));document.querySelectorAll('[data-name]').forEach(e=>e.textContent=profile.name);$('#streamTitle').textContent='Transmissão de '+profile.name}
+function renderProfile(){document.querySelectorAll('[data-av]').forEach(e=>paintAv(e));document.querySelectorAll('[data-name]').forEach(e=>e.textContent=profile.name);$('#streamTitle').textContent='Transmissão de '+profile.name;document.querySelectorAll('[data-status]').forEach(e=>e.textContent=profile.status||PRES[profile.presence]);document.querySelectorAll('[data-pdot]').forEach(e=>e.className='pdot '+profile.presence);renderPeople()}
 function addMsg(m){const el=document.createElement('div');el.className='message';const a=document.createElement('span');a.className='av';paintAv(a,m);
  const t=document.createElement('div');t.className='t';const s=document.createElement('strong'),b=document.createElement('span');s.textContent=m.name;b.textContent=m.text;t.append(s,b);el.append(a,t);$('#messages').append(el);el.scrollIntoView({block:'nearest'})}
 function pushMsg(m){rooms[room].push(m);addMsg(m)}
@@ -158,10 +282,11 @@ function renderRoom(){$('#messages').innerHTML='';rooms[room].forEach(m=>addMsg(
 const slug=v=>v.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-+|-+$/g,'').slice(0,24);
 function saveRooms(){try{localStorage.setItem('ameRooms',JSON.stringify(roomNames))}catch{}}
 function ensureRoom(n){if(!rooms[n]){rooms[n]=[];roomNames.push(n);saveRooms()}}
-function renderRoomList(){const l=$('#roomList');l.innerHTML='';roomNames.forEach(n=>{const b=document.createElement('button');b.type='button';b.className='room'+(n===room?' active':'');const h=document.createElement('span');h.className='h';h.textContent='#';b.append(h,' '+n);b.addEventListener('click',()=>{openRoom(n);toast('Sala aberta: '+n)});l.append(b)})}
+function renderRoomList(){const l=$('#roomList');if(!l)return;l.innerHTML='';roomNames.forEach(n=>{const b=document.createElement('button');b.type='button';b.className='room'+(n===room?' active':'');const h=document.createElement('span');h.className='h';h.textContent='#';b.append(h,' '+n);b.addEventListener('click',()=>{openRoom(n);toast('Sala aberta: '+n)});l.append(b)})}
 function openRoom(n){room=n;renderRoomList();$('#roomTitle').textContent=n;$('#roomTitleTop').firstChild.textContent='#'+n+' · ';renderRoom();joinRoom(n)}
-function makeRoom(){const n=slug($('#roomInput').value);if(!n){toast('Escreva um nome para a sala');return}ensureRoom(n);openRoom(n);$('#roomModal').hidden=true;toast('Sala criada: '+n)}
-$('#newRoom').addEventListener('click',()=>{$('#roomInput').value='';$('#roomModal').hidden=false;$('#roomInput').focus()});
+function makeRoom(){let n=slug($('#roomInput').value);if(!n)n=randomRoom();ensureRoom(n);openRoom(n);$('#roomModal').hidden=true;showApp();toast('Sala criada: '+n);setTimeout(()=>$('#invite').click(),400)}
+const randomRoom=()=>{const a=['rosa','lua','doce','neon','nuvem','estrela','pixel','mel'],b=['gato','coracao','cafe','bolo','sonho','anjo','pilula','laco'],r=x=>x[Math.floor(Math.random()*x.length)];return r(a)+'-'+r(b)+'-'+Math.floor(10+Math.random()*90)}
+const openCreate=()=>{$('#roomInput').value='';$('#roomModal').hidden=false;$('#roomInput').focus()};
 $('#createRoom').addEventListener('click',makeRoom);$('#roomInput').addEventListener('keydown',e=>{if(e.key==='Enter')makeRoom()});
 $('#cancelRoom').addEventListener('click',()=>{$('#roomModal').hidden=true});
 
@@ -171,7 +296,7 @@ $('#messageForm').addEventListener('submit',e=>{e.preventDefault();const i=$('#m
 let draft={photo:''};
 function paintDraft(){const el=$('#pvAv');el.style.backgroundImage=draft.photo?`url(${draft.photo})`:'';el.textContent=draft.photo?'':($('#nameInput').value.trim()||'?').charAt(0).toUpperCase()}
 const closeP=()=>{$('#profileModal').hidden=true};
-$('#editName').addEventListener('click',()=>{draft={photo:profile.photo};$('#nameInput').value=profile.name;paintDraft();$('#profileModal').hidden=false;$('#nameInput').focus()});
+$('#editName').addEventListener('click',()=>{draft={photo:profile.photo};$('#nameInput').value=profile.name;$('#statusInput').value=profile.status||'';$('#presenceInput').value=profile.presence||'online';paintDraft();$('#profileModal').hidden=false;$('#nameInput').focus()});
 $('#nameInput').addEventListener('input',paintDraft);
 $('#photoInput').addEventListener('change',e=>{const f=e.target.files[0];e.target.value='';if(!f)return;
  const img=new Image(),url=URL.createObjectURL(f);
@@ -181,10 +306,10 @@ $('#rmPhoto').addEventListener('click',()=>{draft.photo='';paintDraft()});
 $('#cancelProfile').addEventListener('click',closeP);$('#closeProfile').addEventListener('click',closeP);
 document.addEventListener('keydown',e=>{if(e.key==='Escape')document.querySelectorAll('.modal').forEach(m=>m.hidden=true)});
 $('#saveProfile').addEventListener('click',()=>{const n=$('#nameInput').value.trim();if(!n){toast('Escreva um nome');return}
- profile={name:n.slice(0,24),photo:draft.photo};try{localStorage.setItem('ameProfile',JSON.stringify(profile))}catch{}
+ profile={name:n.slice(0,24),photo:draft.photo,status:$('#statusInput').value.trim().slice(0,30),presence:$('#presenceInput').value};try{localStorage.setItem('ameProfile',JSON.stringify(profile))}catch{}
  renderProfile();sendProfile();closeP();toast('Perfil atualizado')});
 
-function updateStatus(){syncMedia();
+function updateStatus(){syncMedia();syncUI();
  if(!joined){$('#callStatus').textContent='Você ainda não entrou na chamada';return}
  const p=[];p.push(micStream?'microfone ligado':'microfone desligado');if(camStream)p.push('câmera ligada');if(screenStream)p.push('compartilhando tela');
  $('#callStatus').textContent='Conectado · '+p.join(' · ')}
@@ -192,13 +317,13 @@ function setJoined(v){joined=v;$('#join').hidden=v;$('#leave').hidden=!v;if(v)st
 function join(){if(!joined){setJoined(true);toast('Você entrou na chamada')}}
 
 /* microfone (agora pede o mic de verdade e mostra o nível) */
-function stopMic(){cancelAnimationFrame(meterRaf);if(micStream)micStream.getTracks().forEach(t=>t.stop());micStream=null;if(audioCtx){audioCtx.close();audioCtx=null}
- document.querySelectorAll('#meter b').forEach(b=>b.classList.remove('on'));const b=$('#mic');b.classList.remove('on');b.textContent='Microfone: desligado'}
+function stopMic(){cancelAnimationFrame(meterRaf);if(micStream)micStream.getTracks().forEach(t=>t.stop());micStream=null;micGain=null;micOut=null;if(audioCtx){audioCtx.close();audioCtx=null}
+ document.querySelectorAll('#meter b').forEach(b=>b.classList.remove('on'));const b=$('#mic');b.classList.remove('on');}
 async function toggleMic(){
  if(micStream){stopMic();updateStatus();return}
- try{micStream=await navigator.mediaDevices.getUserMedia({audio:true});join();
-  const b=$('#mic');b.classList.add('on');b.textContent='Microfone: ligado';
-  audioCtx=new (window.AudioContext||window.webkitAudioContext)();const an=audioCtx.createAnalyser();an.fftSize=256;audioCtx.createMediaStreamSource(micStream).connect(an);
+ try{micStream=await navigator.mediaDevices.getUserMedia({audio:settings.mic?{deviceId:{ideal:settings.mic}}:true});join();
+  const b=$('#mic');b.classList.add('on');
+  audioCtx=new (window.AudioContext||window.webkitAudioContext)();const an=audioCtx.createAnalyser();an.fftSize=256;if(audioCtx.state==='suspended')audioCtx.resume();const src=audioCtx.createMediaStreamSource(micStream);micGain=audioCtx.createGain();micGain.gain.value=vol.mic;const dst=audioCtx.createMediaStreamDestination();src.connect(micGain);micGain.connect(an);micGain.connect(dst);micOut=dst.stream.getAudioTracks()[0];
   const d=new Uint8Array(an.frequencyBinCount),bars=[...document.querySelectorAll('#meter b')];
   (function loop(){an.getByteFrequencyData(d);const lvl=d.reduce((a,c)=>a+c,0)/d.length/90;bars.forEach((x,i)=>x.classList.toggle('on',i<Math.round(lvl*bars.length)));meterRaf=requestAnimationFrame(loop)})();
   updateStatus();toast('Microfone ligado')
@@ -206,23 +331,23 @@ async function toggleMic(){
 $('#mic').addEventListener('click',toggleMic);
 
 /* câmera (agora mostra o vídeo no quadradinho) */
-function stopCam(){if(camStream)camStream.getTracks().forEach(t=>t.stop());camStream=null;$('#camVideo').srcObject=null;$('#camTile').classList.remove('live');const b=$('#camera');b.classList.remove('on');b.textContent='Câmera: desligada'}
+function stopCam(){if(camStream)camStream.getTracks().forEach(t=>t.stop());camStream=null;$('#camVideo').srcObject=null;$('#camTile').classList.remove('live');const b=$('#camera');b.classList.remove('on');}
 async function toggleCam(){
  if(camStream){stopCam();updateStatus();return}
- try{camStream=await navigator.mediaDevices.getUserMedia({video:true});join();
-  $('#camVideo').srcObject=camStream;$('#camTile').classList.add('live');const b=$('#camera');b.classList.add('on');b.textContent='Câmera: ligada';updateStatus();toast('Câmera ligada')
+ try{camStream=await navigator.mediaDevices.getUserMedia({video:settings.cam?{deviceId:{ideal:settings.cam}}:true});join();
+  $('#camVideo').srcObject=camStream;$('#camTile').classList.add('live');const b=$('#camera');b.classList.add('on');updateStatus();toast('Câmera ligada')
  }catch{camStream=null;toast('Não deu pra ligar a câmera. Verifique a permissão do navegador.')}}
 $('#camera').addEventListener('click',toggleCam);
 
 /* compartilhar tela (agora mostra a tela de verdade) */
 function stopShare(){if(screenStream)screenStream.getTracks().forEach(t=>t.stop());screenStream=null;refreshScreen();
- const b=$('#share');b.classList.remove('on');b.textContent='Compartilhar tela';$('#streamState').textContent='Prévia da tela'}
-async function toggleShare(){
+ const b=$('#share');b.classList.remove('on');$('#streamState').textContent='Prévia da tela'}
+async function toggleShare(surface){surface=typeof surface==='string'?surface:undefined;
  if(screenStream){stopShare();updateStatus();return}
  if(!navigator.mediaDevices||!navigator.mediaDevices.getDisplayMedia){toast('Seu navegador não suporta compartilhar tela.');return}
- try{screenStream=await navigator.mediaDevices.getDisplayMedia({video:true,audio:true});join();
+ try{screenStream=await navigator.mediaDevices.getDisplayMedia({video:surface?{displaySurface:surface}:true,audio:pcAudio});join();sharedKind=surface||'monitor';if(pcAudio&&!screenStream.getAudioTracks().length)setTimeout(()=>toast(window.ipc?'Esta janela do app não captura o áudio do PC. Para transmitir com som, use o AME! LIVE no navegador (Chrome ou Edge) ou a versão Electron.':'O áudio do PC não foi capturado. Na janela de escolha, selecione "Tela inteira" e marque "Compartilhar áudio do sistema".'),2200);
   refreshScreen();
-  const b=$('#share');b.classList.add('on');b.textContent='Parar compartilhamento';
+  const b=$('#share');b.classList.add('on');
   $('#streamState').textContent='Tela compartilhada'+(screenStream.getAudioTracks().length?' · áudio do PC ativo':'');
   screenStream.getVideoTracks()[0].addEventListener('ended',()=>{stopShare();updateStatus()});updateStatus();toast('Compartilhamento iniciado')
  }catch{screenStream=null;toast('Compartilhamento não iniciado')}}
@@ -231,8 +356,28 @@ $('#share').addEventListener('click',toggleShare);
 $('#join').addEventListener('click',()=>{setJoined(true);toast('Você entrou na chamada')});
 $('#leave').addEventListener('click',()=>{stopMic();stopCam();stopShare();setJoined(false);$('#callStatus').textContent='Você saiu da chamada';toast('Você saiu da chamada')});
 
-const inviteLink=()=>location.href.split('#')[0]+'#sala='+encodeURIComponent(room);
-$('#invite').addEventListener('click',()=>{$('#inviteInput').value=inviteLink();$('#inviteRoom').textContent='#'+room;$('#inviteModal').hidden=false;$('#inviteInput').select()});
+let tPoll=0;
+const isPublicHost=()=>location.protocol!=='file:'&&(/trycloudflare\.com$/.test(location.hostname)||(location.protocol==='https:'&&location.hostname!=='localhost'));
+const INV=['#inviteInput','#codeBox','#copyInvite','#startTunnel','#stopTunnel'];
+function showLink(base){const i=$('#inviteInput');i.value=base.replace(/\/$/,'')+'/#sala='+encodeURIComponent(room);i.hidden=false;$('#copyInvite').hidden=false;try{const h=new URL(base).hostname;if(/\.trycloudflare\.com$/.test(h)){$('#codeInput').value=h.replace(/\.trycloudflare\.com$/,'')+'.'+room;$('#codeBox').hidden=false}}catch{}i.select()}
+async function tunnelCall(path,post){try{const r=await fetch(path,post?{method:'POST',headers:{'x-ame':'1'}}:{cache:'no-store'});return r.ok?await r.json():null}catch{return null}}
+function renderTunnel(t){INV.forEach(x=>$(x).hidden=true);const m=$('#inviteMsg');
+ if(t.status==='on'){m.textContent='Link pronto! Mande para quem quiser entrar nesta sala. Ele vale enquanto o app estiver aberto.';showLink(t.url);$('#stopTunnel').hidden=false}
+ else if(t.status==='starting'){m.textContent='Gerando o link… (pode levar alguns segundos)';pollTunnel()}
+ else if(t.status==='error'){m.textContent=t.msg||'Não consegui gerar o link.';if(t.available)$('#startTunnel').hidden=false}
+ else if(!t.available){m.textContent='O arquivo cloudflared.exe precisa ficar na mesma pasta do app para gerar o link.'}
+ else{m.textContent='Gere um link para chamar amigos que estão fora da sua casa. Eles abrem no navegador.';$('#startTunnel').hidden=false}}
+function pollTunnel(){clearTimeout(tPoll);tPoll=setTimeout(async()=>{if($('#inviteModal').hidden)return;const t=await tunnelCall('/tunnel');if(t)renderTunnel(t)},1200)}
+async function openInvite(){
+ $('#inviteRoom').textContent='#'+room;$('#inviteModal').hidden=false;clearTimeout(tPoll);INV.forEach(x=>$(x).hidden=true);const m=$('#inviteMsg');m.textContent='';
+ const srv=tempServer||customServer;if(srv){m.textContent='Mande este link: quem usa este servidor entra nesta sala.';showLink(srv.replace(/^ws/,'http'));return}
+ if(isPublicHost()){m.textContent='Mande este link para entrarem nesta sala.';showLink(location.origin);return}
+ const t=await tunnelCall('/tunnel');
+ if(!t){m.textContent='Para convidar amigos de fora, use o app AME LIVE (ele gera o link sozinho) ou preencha "Servidor online" no seu perfil.';return}
+ renderTunnel(t)}
+$('#invite').addEventListener('click',openInvite);
+$('#startTunnel').addEventListener('click',async()=>{$('#startTunnel').hidden=true;$('#inviteMsg').textContent='Gerando o link… (pode levar alguns segundos)';const t=await tunnelCall('/tunnel/start',true);if(t)renderTunnel(t);else $('#inviteMsg').textContent='Não consegui ligar o link.'});
+$('#stopTunnel').addEventListener('click',async()=>{await tunnelCall('/tunnel/stop',true);INV.forEach(x=>$(x).hidden=true);$('#inviteMsg').textContent='Link desligado.';$('#startTunnel').hidden=false});
 $('#copyInvite').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('#inviteInput').value);toast('Link copiado!')}catch{$('#inviteInput').select();toast('Copie o link selecionado')}});
 $('#closeInvite').addEventListener('click',()=>{$('#inviteModal').hidden=true});
 function openFromHash(){const m=location.hash.match(/^#sala=(.+)$/);if(m){try{const n=slug(decodeURIComponent(m[1]));if(n){ensureRoom(n);room=n}}catch{}}openRoom(room)}
@@ -241,23 +386,25 @@ function openFromHash(){const m=location.hash.match(/^#sala=(.+)$/);if(m){try{co
 let ws=null,myId=null;const peers=new Map();
 const ICE={iceServers:[{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'}]};
 const KINDS=['audio','video','video','audio'];
-const wsUrl=()=>location.protocol==='file:'||!location.host?'ws://localhost:3000':(location.protocol==='https:'?'wss://':'ws://')+location.host;
+let customServer='',tempServer='';try{customServer=localStorage.getItem('ameServer')||''}catch{}
+const wsUrl=()=>{const c=tempServer||customServer;return c?c.replace(/^http/,'ws'):(location.protocol==='file:'||!location.host?'ws://localhost:3000':(location.protocol==='https:'?'wss://':'ws://')+location.host)};
 const online=()=>ws&&ws.readyState===1;
 function send(o){if(online())ws.send(JSON.stringify(o))}
-function setNet(on){const e=$('#netState');e.textContent=on?'● online':'● offline';e.classList.toggle('on',on)}
+function setNet(on){const e=$('#netState');e.textContent=(on?'● online':'● offline')+(tempServer?' · convidada':'');e.classList.toggle('on',on)}
 function connect(){
- try{ws=new WebSocket(wsUrl())}catch{return}
+ if(!inApp)return;try{ws=new WebSocket(wsUrl())}catch{return}
  ws.onopen=()=>{setNet(true);sendJoin()};
- ws.onclose=()=>{setNet(false);myId=null;clearPeers();setTimeout(connect,3000)};
+ ws.onclose=()=>{setNet(false);myId=null;clearPeers();setTimeout(()=>{if(inApp)connect()},3000)};
  ws.onmessage=e=>{try{handle(JSON.parse(e.data))}catch(err){console.error(err)}}}
-const sendJoin=()=>send({t:'join',room,name:profile.name,photo:profile.photo});
-const sendProfile=()=>send({t:'profile',name:profile.name,photo:profile.photo});
+const sendJoin=()=>inApp&&send({t:'join',room,name:profile.name,photo:profile.photo,status:profile.status,presence:profile.presence});
+const sendProfile=()=>send({t:'profile',name:profile.name,photo:profile.photo,status:profile.status,presence:profile.presence});
+function reconnect(){if(ws){ws.onclose=null;try{ws.close()}catch{}}setNet(false);myId=null;clearPeers();connect()}
 function sendChat(text){if(online())send({t:'chat',text});else pushMsg({name:profile.name,photo:profile.photo,text})}
-function joinRoom(n){if(joined){stopMic();stopCam();stopShare();setJoined(false)}if(online()){clearPeers();sendJoin()}}
-function updateCount(){$('#callState').textContent=(joined?'Na chamada':'Chamada pronta')+' · '+(peers.size+1)+(peers.size?' pessoas':' pessoa')+' na sala'}
+function joinRoom(n){wantAuto=true;if(joined){stopMic();stopCam();stopShare();setJoined(false)}if(online()){clearPeers();sendJoin()}}
+function updateCount(){$('#callState').textContent=(joined?'Na chamada':'Chamada pronta')+' · '+(peers.size+1)+(peers.size?' pessoas':' pessoa')+' na sala';renderPeople()}
 
 function handle(m){
- if(m.t==='welcome'){myId=m.id;clearPeers();m.peers.forEach(addPeer);rooms[room]=m.history;renderRoom();updateCount();if(joined)startCall()}
+ if(m.t==='welcome'){myId=m.id;clearPeers();m.peers.forEach(addPeer);rooms[room]=m.history;renderRoom();updateCount();if(wantAuto){wantAuto=false;if(!joined)setJoined(true);else startCall()}else if(joined)startCall()}
  else if(m.t==='peer')addPeer(m);
  else if(m.t==='left'){const p=peers.get(m.id);if(p){closePc(p);p.tile.remove();peers.delete(m.id);updateCount();refreshScreen()}}
  else if(m.t==='chat')pushMsg(m);
@@ -266,24 +413,35 @@ function handle(m){
  else if(m.t==='signal')onSignal(m.from,m.data)}
 
 function addPeer(p){let x=peers.get(p.id);
- if(!x){x={id:p.id,pc:null,pend:[],camStream:null,screenStream:null,audioStream:new MediaStream()};
+ if(!x){x={id:p.id,pc:null,pend:[],camStream:null,screenStream:null,voiceStream:new MediaStream(),soundStream:new MediaStream()};
   const t=document.createElement('div');t.className='tile';const v=document.createElement('video');v.autoplay=true;v.playsInline=true;v.muted=true;
   const sp=document.createElement('span');sp.className='me';const a=document.createElement('span');a.className='av big';const nm=document.createElement('b');
-  const au=document.createElement('audio');au.autoplay=true;au.srcObject=x.audioStream;sp.append(a,document.createElement('br'),nm);t.append(v,sp,au);$('#tiles').append(t);
-  Object.assign(x,{tile:t,video:v,av:a,nm,audio:au});peers.set(p.id,x)}
+  const vo=document.createElement('audio'),so=document.createElement('audio');vo.autoplay=so.autoplay=true;vo.srcObject=x.voiceStream;so.srcObject=x.soundStream;vo.volume=vol.voice;so.volume=vol.sound;sp.append(a,document.createElement('br'),nm);t.append(v,sp,vo,so);t.addEventListener('click',()=>setWatch(p.id));$('#tiles').append(t);
+  Object.assign(x,{tile:t,video:v,av:a,nm,voiceEl:vo,soundEl:so});peers.set(p.id,x)}
  if(p!==x)Object.assign(x,p);
  paintAv(x.av,x);x.nm.textContent=x.name;x.tile.classList.toggle('live',!!(x.cam&&x.camStream));
  if(x.video.srcObject!==x.camStream)x.video.srcObject=x.camStream;
  updateCount();refreshScreen()}
 function clearPeers(){peers.forEach(p=>{closePc(p);p.tile.remove()});peers.clear();updateCount();refreshScreen()}
-function closePc(p){if(p.pc){p.pc.close();p.pc=null}p.pend=[];p.camStream=null;p.screenStream=null;p.audioStream.getTracks().forEach(t=>p.audioStream.removeTrack(t));addPeer(p)}
+function closePc(p){if(p.pc){p.pc.close();p.pc=null}p.pend=[];p.camStream=null;p.screenStream=null;[p.voiceStream,p.soundStream].forEach(st=>st.getTracks().forEach(t=>st.removeTrack(t)));addPeer(p)}
 
-function refreshScreen(){let src=null,from=null;
- if(screenStream)src=screenStream;else for(const p of peers.values())if(p.screen&&p.screenStream){src=p.screenStream;from=p;break}
- const v=$('#screenVideo');v.muted=true;if(v.srcObject!==src)v.srcObject=src;$('#screenBox').classList.toggle('live',!!src);
- if(from)$('#streamState').textContent='Tela de '+from.name;else if(!screenStream)$('#streamState').textContent='Prévia da tela'}
-
-function localTracks(){return[micStream&&micStream.getAudioTracks()[0],camStream&&camStream.getVideoTracks()[0],screenStream&&screenStream.getVideoTracks()[0],screenStream&&screenStream.getAudioTracks()[0]]}
+let watchId=null;
+function pickWatch(){
+ if(watchId&&watchId!=='me'&&!peers.has(watchId))watchId=null;
+ let id=watchId;
+ if(!id){if(screenStream)id='me';else for(const p of peers.values())if(p.screen&&p.screenStream){id=p.id;break}}
+ if(!id)return{id:null,stream:null,name:'',kind:'',mine:false};
+ if(id==='me')return{id,name:profile.name,mine:true,kind:screenStream?'screen':camStream?'cam':'',stream:screenStream||camStream||null};
+ const p=peers.get(id),sc=p.screen&&p.screenStream,cm=p.cam&&p.camStream;
+ return{id,name:p.name,mine:false,kind:sc?'screen':cm?'cam':'',stream:sc?p.screenStream:cm?p.camStream:null}}
+function setWatch(id){watchId=watchId===id?null:id;refreshScreen();renderPeople()}
+function refreshScreen(){const w=pickWatch(),v=$('#screenVideo');v.muted=true;if(v.srcObject!==w.stream)v.srcObject=w.stream;
+ $('#screenBox').classList.toggle('live',!!w.stream);v.style.transform=(w.mine&&w.kind==='cam')?'scaleX(-1)':'';
+ const ph=$('#phText'),ss=$('#streamState');
+ if(!w.id)ph.textContent='Selecione uma tela para transmitir!';else if(!w.stream)ph.textContent=w.mine?'Você não está transmitindo':w.name+' não está transmitindo';
+ if(w.id&&!(w.mine&&w.kind==='screen'))ss.textContent=w.stream?(w.kind==='cam'?'Câmera de ':'Tela de ')+w.name:(w.mine?'Prévia da tela':'Assistindo '+w.name);
+ else if(!w.id&&!screenStream)ss.textContent='Prévia da tela'}
+function localTracks(){return[micOut||(micStream&&micStream.getAudioTracks()[0]),camStream&&camStream.getVideoTracks()[0],screenStream&&screenStream.getVideoTracks()[0],screenStream&&screenStream.getAudioTracks()[0]]}
 function applyTracks(pc){const tr=localTracks();pc.getTransceivers().forEach((t,i)=>{if(i<4)t.sender.replaceTrack(tr[i]||null).catch(()=>{})})}
 function syncMedia(){peers.forEach(p=>p.pc&&applyTracks(p.pc));send({t:'media',mic:!!micStream,cam:!!camStream,screen:!!screenStream})}
 function startCall(){send({t:'call',on:true});peers.forEach(p=>{if(p.inCall)callPeer(p)});syncMedia()}
@@ -292,7 +450,7 @@ function endCall(){peers.forEach(closePc);send({t:'call',on:false})}
 function newPc(p){const pc=new RTCPeerConnection(ICE);p.pc=pc;
  pc.onicecandidate=e=>{if(e.candidate)send({t:'signal',to:p.id,data:{ice:e.candidate}})};
  pc.ontrack=e=>{const i=pc.getTransceivers().indexOf(e.transceiver);
-  if(i===0||i===3){p.audioStream.addTrack(e.track);p.audio.play().catch(()=>{})}
+  if(i===0||i===3){const st=i===0?p.voiceStream:p.soundStream,el=i===0?p.voiceEl:p.soundEl;st.addTrack(e.track);el.srcObject=st;playAudio(el)}
   else if(i===1){p.camStream=new MediaStream([e.track]);addPeer(p)}
   else if(i===2){p.screenStream=new MediaStream([e.track]);refreshScreen()}};
  return pc}
@@ -307,7 +465,100 @@ async function onSignal(from,d){const p=peers.get(from);if(!p)return;
   else if(p.pc&&p.pc.signalingState==='have-local-offer'){await p.pc.setRemoteDescription(d.sdp);flushIce(p)}}
  else if(d.ice){if(p.pc&&p.pc.remoteDescription)p.pc.addIceCandidate(d.ice).catch(()=>{});else p.pend.push(d.ice)}}
 
-renderProfile();openFromHash();connect();
+/* ===== visual novo: lista de pessoas, abas, emojis, fontes ===== */
+let pcAudio=true,sharedKind='';
+function renderPeople(){const l=$('#people');if(!l)return;l.innerHTML='';const cur=pickWatch().id;
+ const add=(p,id,txt,me)=>{const r=document.createElement('div');r.className='friend'+(cur===id?' sel':'');r.tabIndex=0;r.setAttribute('role','button');r.title='Ver a transmissão de '+p.name;
+  const a=document.createElement('span');a.className='av med';paintAv(a,p);
+  const pr=PRES[p.presence]?p.presence:'online';const d=document.createElement('span');d.className='dot '+pr;const t=document.createElement('div');const n=document.createElement('b'),sm=document.createElement('small');
+  n.textContent=p.name+(me?' (você)':'')+' ♡';sm.textContent=p.status||txt;sm.className=pr;t.append(n,sm);r.append(a,d,t);
+  const go=()=>setWatch(id);r.addEventListener('click',go);r.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();go()}});l.append(r)};
+ add(profile,'me',screenStream?'transmitindo':joined?'na chamada':PRES[profile.presence],true);
+ peers.forEach(p=>add(p,p.id,p.screen?'transmitindo':p.cam?'câmera ligada':p.inCall?'na chamada':(PRES[p.presence]||'online'),false))}
+function syncUI(){const f=(id,on)=>$(id).classList.toggle('on',!!on);
+ f('#mic',micStream);f('#camera',camStream);f('#share',screenStream);f('#srcCam',camStream);f('#srcAudio',pcAudio);
+ $('#shareLbl').textContent=screenStream?'Parar transmissão':'Transmitir tela';
+ const lb=$('#liveBadge');lb.classList.toggle('off',!joined);lb.lastChild.textContent=joined?' Ao vivo':' Offline';refreshScreen();renderPeople()}
+$('#srcCam').addEventListener('click',toggleCam);
+$('#srcAudio').addEventListener('click',()=>{pcAudio=!pcAudio;settings.pcAudio=pcAudio;try{localStorage.setItem('ameSettings',JSON.stringify(settings))}catch{}syncUI();toast(screenStream?'Vale na próxima vez que compartilhar a tela':(pcAudio?'Áudio do PC será compartilhado':'Sem áudio do PC'))});
+$('#gear').addEventListener('click',()=>openSettings());
+const setChat=on=>{$('#app').classList.toggle('nochat',!on);$('#tabChat').classList.toggle('active',on)};
+$('#chatClose').addEventListener('click',()=>setChat(false));
+$('#tabChat').addEventListener('click',()=>setChat($('#app').classList.contains('nochat')));
+$('#tabInvite').addEventListener('click',()=>$('#invite').click());
+$('#tabChat').classList.add('active');
+['♡','✦','☆','✿','♪','(๑>◡<๑)','uwu','( ˘▽˘)','>_<','✧'].forEach(e=>{const b=document.createElement('button');b.type='button';b.textContent=e;b.addEventListener('click',()=>{const i=$('#messageInput');i.value+=e;i.focus()});$('#emojiPop').append(b)});
+const togglePop=()=>{if($('#app').classList.contains('nochat'))setChat(true);$('#emojiPop').hidden=!$('#emojiPop').hidden};
+$('#emojiBtn').addEventListener('click',togglePop);$('#emojiBtn2').addEventListener('click',togglePop);
+document.addEventListener('click',e=>{if(!e.target.closest('#emojiPop,#emojiBtn,#emojiBtn2'))$('#emojiPop').hidden=true});
+
+/* ===== entrar numa sala por link ou código ===== */
+function parseJoin(v){v=v.trim();if(!v)return null;let server='',r='';
+ if(/^(https?|wss?):\/\//i.test(v)||/trycloudflare\.com/i.test(v)){
+  const u=new URL(/^[a-z]+:\/\//i.test(v)?v:'https://'+v);const m=u.hash.match(/sala=([^&]+)/);r=m?slug(decodeURIComponent(m[1])):'';
+  server=(u.protocol==='ws:'?'http:':u.protocol==='wss:'?'https:':u.protocol)+'//'+u.host}
+ else if(v.includes('.')){const i=v.indexOf('.'),sub=v.slice(0,i).toLowerCase().replace(/[^a-z0-9-]/g,'');if(!sub)return null;server='https://'+sub+'.trycloudflare.com';r=slug(v.slice(i+1))}
+ else{r=slug(v);if(!r)return null}
+ return{server,room:r||'geral'}}
+const openJoin=()=>{$('#joinInput').value='';$('#joinMsg').textContent='Cole o link que um amigo mandou ou o código da sala. Só o nome (ex: geral) abre uma sala deste mesmo servidor.';$('#backHome').hidden=!tempServer;$('#joinModal').hidden=false;$('#joinInput').focus()};
+$('#doJoin').addEventListener('click',()=>{let p=null;try{p=parseJoin($('#joinInput').value)}catch{}
+ if(!p){$('#joinMsg').textContent='Não entendi esse link ou código. Confira e tente de novo.';return}
+ $('#joinModal').hidden=true;if(p.server)tempServer=p.server;ensureRoom(p.room);openRoom(p.room);showApp();
+ toast(p.server?'Entrando na sala #'+p.room+'…':'Sala aberta: '+p.room)});
+$('#joinInput').addEventListener('keydown',e=>{if(e.key==='Enter')$('#doJoin').click()});
+$('#backHome').addEventListener('click',()=>{tempServer='';$('#joinModal').hidden=true;reconnect();toast('De volta ao seu servidor')});
+$('#cancelJoin').addEventListener('click',()=>{$('#joinModal').hidden=true});
+$('#copyCode').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('#codeInput').value);toast('Código copiado!')}catch{$('#codeInput').select();toast('Copie o código selecionado')}});
+document.querySelectorAll('.modal .bar i b').forEach(b=>b.addEventListener('click',()=>{b.closest('.modal').hidden=true}));
+
+/* ===== tela inicial, configurações, sobre ===== */
+let inApp=/^#sala=/.test(location.hash);$('#home').hidden=inApp;let wantAuto=inApp;
+let settings={mic:'',cam:'',pcAudio:true};try{Object.assign(settings,JSON.parse(localStorage.getItem('ameSettings')||'{}'))}catch{}
+pcAudio=settings.pcAudio!==false;
+function showApp(){inApp=true;wantAuto=true;$('#home').hidden=true;if(online())sendJoin();else if(!ws||ws.readyState>1)connect()}
+function goHome(){if(joined){stopMic();stopCam();stopShare();setJoined(false)}inApp=false;tempServer='';watchId=null;if(ws){ws.onclose=null;try{ws.close()}catch{}}setNet(false);myId=null;clearPeers();$('#home').hidden=false}
+async function fillDevices(){try{const ds=await navigator.mediaDevices.enumerateDevices();
+ [['#setMic','audioinput','Microfone','mic'],['#setCam','videoinput','Câmera','cam']].forEach(([sel,kind,nm,key])=>{const e=$(sel);e.innerHTML='';e.append(new Option('Padrão do sistema',''));let n=0;
+  ds.filter(d=>d.kind===kind&&d.deviceId&&!['default','communications'].includes(d.deviceId)).forEach(d=>e.append(new Option(d.label||nm+' '+(++n),d.deviceId)));e.value=settings[key]||''})}catch{}}
+function openSettings(){fillDevices();$('#setPc').checked=pcAudio;$('#serverInput').value=customServer;$('#settingsModal').hidden=false}
+$('#saveSettings').addEventListener('click',()=>{settings={mic:$('#setMic').value,cam:$('#setCam').value,pcAudio:$('#setPc').checked};pcAudio=settings.pcAudio;try{localStorage.setItem('ameSettings',JSON.stringify(settings))}catch{}
+ const sv=$('#serverInput').value.trim();let bad=false;
+ if(sv!==customServer){if(sv===''||/^(https?|wss?):\/\//.test(sv)){customServer=sv;try{localStorage.setItem('ameServer',sv)}catch{}reconnect()}else{bad=true;toast('Endereço do servidor inválido (use https://...)')}}
+ if(!bad){$('#settingsModal').hidden=true;syncUI();toast('Configurações salvas')}});
+$('#cancelSettings').addEventListener('click',()=>{$('#settingsModal').hidden=true});
+$('#closeAbout').addEventListener('click',()=>{$('#aboutModal').hidden=true});
+$('#hStart').addEventListener('click',()=>{$('#startModal').hidden=false});
+$('#chJoin').addEventListener('click',()=>{$('#startModal').hidden=true;openJoin()});
+$('#chCreate').addEventListener('click',()=>{$('#startModal').hidden=true;openCreate()});
+$('#hSettings').addEventListener('click',openSettings);
+$('#hProfile').addEventListener('click',()=>$('#editName').click());
+$('#hAbout').addEventListener('click',()=>{$('#aboutModal').hidden=false});
+$('#hQuit').addEventListener('click',()=>{if(window.ipc)window.ipc.postMessage('quit');else{try{window.close()}catch{}toast('Pode fechar esta aba ♡')}});
+$('#tabHome').addEventListener('click',goHome);
+$('#camTile').addEventListener('click',()=>setWatch('me'));
+document.querySelectorAll('.pop .bar i b').forEach(b=>b.addEventListener('click',()=>{b.closest('.pop').hidden=true}));
+(function(){const s=$('#sky'),ns='http://www.w3.org/2000/svg';let i=7;const rnd=()=>{i=(i*9301+49297)%233280;return i/233280};
+ const add=(t,a)=>{const e=document.createElementNS(ns,t);for(const k in a)e.setAttribute(k,a[k]);s.append(e)};
+ [['#cbbdf3',.6,150,330],['#b4a4ec',.85,100,250]].forEach(([c,o,mn,mx])=>{let x=-20;while(x<1620){const w=50+rnd()*70,h=mn+rnd()*(mx-mn);add('rect',{x,y:900-h,width:w,height:h,fill:c,opacity:o});
+  for(let y=900-h+16;y<880;y+=26)for(let wx=x+8;wx<x+w-10;wx+=18)if(rnd()>.6)add('rect',{x:wx,y,width:8,height:12,fill:'#fff',opacity:.55});x+=w+4}});
+ add('path',{d:'M1250 900L1288 360 1302 360 1340 900M1272 560h46M1262 700h66M1288 360l7-80 7 80',fill:'none',stroke:'#9f8be4','stroke-width':6});
+ add('path',{d:'M880 900V540M836 590h88M848 630h64',stroke:'#9a86df','stroke-width':8,fill:'none'});
+ add('path',{d:'M0 650Q440 710 880 590T1600 570',stroke:'#9a86df','stroke-width':3,fill:'none'});
+ [['♥','12%','16%',44,'#ff9fd0'],['✦','72%','9%',36,'#fff'],['♥','86%','52%',34,'#ff9fd0'],['✦','50%','60%',30,'#fff'],['♥','40%','66%',40,'#ffc2e0'],['✦','94%','32%',40,'#c9b8ff'],['♥','80%','20%',26,'#b9d4ff'],['✦','8%','70%',28,'#fff']].forEach(([c,l,t,z,col])=>{const e=document.createElement('span');e.className='deco';e.textContent=c;e.style.cssText=`left:${l};top:${t};font-size:${z}px;color:${col}`;$('#home').append(e)});
+ [['62%','8%',-35],['78%','84%',-30],['4%','56%',30]].forEach(([l,t,r])=>{const e=document.createElement('i');e.className='deco pill';e.style.cssText=`left:${l};top:${t};transform:rotate(${r}deg)`;$('#home').append(e)})})();
+
+/* ===== volume e som ===== */
+let vol={mic:1,voice:1,sound:1},micGain=null,micOut=null,audioBlocked=false;
+try{Object.assign(vol,JSON.parse(localStorage.getItem('ameVol')||'{}'))}catch{}
+function applyVol(){peers.forEach(p=>{if(p.voiceEl)p.voiceEl.volume=vol.voice;if(p.soundEl)p.soundEl.volume=vol.sound});if(micGain)micGain.gain.value=vol.mic}
+[['vMic','mic'],['vVoice','voice'],['vSound','sound']].forEach(([id,k])=>{const r=$('#'+id),l=$('#'+id+'V');r.value=Math.round(vol[k]*100);l.textContent=r.value+'%';
+ r.addEventListener('input',()=>{vol[k]=r.value/100;l.textContent=r.value+'%';applyVol();try{localStorage.setItem('ameVol',JSON.stringify(vol))}catch{}})});
+$('#volBtn').addEventListener('click',()=>{$('#volPop').hidden=!$('#volPop').hidden});
+document.addEventListener('click',e=>{if(!e.target.closest('#volPop,#volBtn'))$('#volPop').hidden=true});
+function playAudio(el){const r=el.play();if(r&&r.catch)r.catch(()=>{audioBlocked=true;toast('Clique em qualquer lugar para ativar o som ♡')})}
+document.addEventListener('click',()=>{if(!audioBlocked)return;audioBlocked=false;peers.forEach(p=>[p.voiceEl,p.soundEl].forEach(e=>e&&e.play().catch(()=>{})))},true);
+
+renderProfile();openFromHash();if(inApp)connect();updateCount();syncUI();
 </script>
 </body>
 </html>

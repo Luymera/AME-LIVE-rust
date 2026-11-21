@@ -1,17 +1,43 @@
-AME LIVE! OVERDOSE (app de desktop em Rust)
+AME! LIVE (app de desktop em Rust)
 
-1. Extraia a pasta inteira e de dois cliques em "AME LIVE.exe".
-   (O arquivo WebView2Loader.dll precisa ficar ao lado do .exe.)
-2. Abre uma janela propria, sem navegador e sem janela preta.
+1. Extraia a pasta INTEIRA e de dois cliques em "AME LIVE.exe".
+   Os arquivos WebView2Loader.dll e cloudflared.exe precisam ficar ao lado do .exe.
+2. O servidor ja vai EMBUTIDO no app: nao precisa instalar nada.
 3. Na primeira vez, o Windows pergunta se o app pode usar camera e microfone: clique em Permitir.
 
-Requisito: Microsoft Edge WebView2 Runtime. Ja vem no Windows 11 e na maioria dos Windows 10.
-Se o app nao abrir, instale em: https://developer.microsoft.com/microsoft-edge/webview2/
+TELA INICIAL
+- Iniciar: escolha "Entrar" (com link ou codigo de um amigo) ou "Criar" (sala nova; o nome e opcional).
+  Ao criar, abre a janela de convite com o link e o codigo para mandar aos amigos.
+- Configuracoes: escolha microfone e camera, audio do PC e (avancado) servidor online.
+- Perfil: nome, foto, status personalizado e disponibilidade.
+- Sobre o AME! LIVE e Sair.
 
-Seu perfil e dados ficam em %LOCALAPPDATA%\AME-LIVE.
+DENTRO DA SALA
+- A lista de usuarios fica na lateral. Clique no NOME ou na FOTO de alguem para ver a transmissao dela
+  (tela ou camera). Clique de novo para voltar ao automatico (mostra quem estiver transmitindo a tela).
+  Clicar no quadradinho da camera tambem funciona.
+- "Inicio" (aba do topo) volta para a tela inicial e sai da sala.
 
-Para usar um servidor online (ex: Render), crie servidor.txt ao lado do .exe com uma linha:
-   https://seu-endereco.onrender.com
+CHAMADA E VOLUME
+- Ao entrar numa sala voce ja entra na chamada (voce ouve e ve os outros). Microfone e camera continuam desligados ate voce ligar.
+- O botao de volume (alto-falante) abre tres controles: Meu microfone (0 a 200%), Vozes dos amigos e Som da transmissao.
+- Som da transmissao: quem transmite a tela precisa que o navegador capture o audio do PC (em Chrome/Edge, escolha "Tela inteira" e marque "Compartilhar audio do sistema").
+  A janela do app (WebView2) pode nao capturar o audio do PC; para transmitir com som, use o navegador ou a versao Electron.
+- Se o navegador bloquear o som de quem chegou pelo link, clique em qualquer lugar da pagina para liberar.
+
+CONVIDAR AMIGOS DE FORA
+- Em "Convidar", clique em "Gerar link para amigos". Mande o link (ou o codigo) para quem quiser.
+- Eles abrem no navegador, sem instalar nada, ou colam em "Entrar" no app.
+- O link vale enquanto o app estiver aberto e muda a cada vez. O video vai direto do seu computador
+  para cada pessoa; funciona melhor com poucas pessoas (uns 4 ou 5).
+- Alguns antivirus ou redes bloqueiam o cloudflared. Se der erro, o app avisa na janela do convite.
+
+Requisito: Microsoft Edge WebView2 Runtime (ja vem no Windows 11 e na maioria dos Windows 10).
+Se nao abrir, instale em: https://developer.microsoft.com/microsoft-edge/webview2/
+
+Seus dados ficam em %LOCALAPPDATA%\AME-LIVE.
+
+Credito: cloudflared (c) Cloudflare, licenca Apache-2.0 - https://github.com/cloudflare/cloudflared
 
 Para recompilar: instale o Rust (rustup.rs) e rode "cargo build --release" dentro de codigo-fonte.
 
