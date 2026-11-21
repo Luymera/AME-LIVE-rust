@@ -1,6 +1,31 @@
-# AME! LIVE — versão desktop
+# AME! LIVE — salas, chamadas e transmissões
 
-App de salas, mensagens e chamadas para Windows.
+O AME! LIVE é um aplicativo desktop para Windows feito para reunir amigos em um espaço simples de comunicação. Crie ou entre em salas, acompanhe quem está online e converse por mensagens enquanto participa de chamadas ou compartilha o que está fazendo.
+
+A interface combina rosa, azul e detalhes cyber-kawaii com os recursos essenciais de uma comunidade: canais de texto, lista de participantes, controles de chamada e uma área dedicada à transmissão.
+
+### O que você encontra no app
+
+- **Salas e canais** para organizar conversas e atividades.
+- **Chat de texto** para trocar mensagens com as pessoas da sala.
+- **Controles de chamada** para microfone, câmera e áudio.
+- **Compartilhamento de tela** e opção de áudio do PC durante a transmissão.
+- **Convites** para chamar outras pessoas para a sala.
+
+### Capturas de tela
+
+As imagens abaixo mostram exemplos da tela inicial, das salas e da área de transmissão.
+
+<table>
+  <tr>
+    <td align="center"><img src="01-tela-inicial.png" alt="Tela inicial do AME! LIVE" width="100%"><br><sub>Tela inicial</sub></td>
+    <td align="center"><img src="02-sala-sem-transmissao.png" alt="Sala com controles de chamada e prévia de transmissão" width="100%"><br><sub>Sala e controles de chamada</sub></td>
+  </tr>
+  <tr>
+    <td align="center"><img src="03-salas-e-convite.png" alt="Lista de canais e participantes da sala" width="100%"><br><sub>Canais e participantes</sub></td>
+    <td align="center"><img src="04-transmissao-ao-vivo-final.png" alt="Exemplo de transmissão de tela ao vivo" width="100%"><br><sub>Transmissão ao vivo</sub></td>
+  </tr>
+</table>
 
 ## Download
 
