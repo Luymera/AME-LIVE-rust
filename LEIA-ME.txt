@@ -1,43 +1,54 @@
-AME! LIVE (app de desktop em Rust)
+AME! LIVE — aplicativo desktop de salas, chamadas e transmissões
 
-1. Extraia a pasta INTEIRA e de dois cliques em "AME LIVE.exe".
-   Os arquivos WebView2Loader.dll e cloudflared.exe precisam ficar ao lado do .exe.
-2. O servidor ja vai EMBUTIDO no app: nao precisa instalar nada.
-3. Na primeira vez, o Windows pergunta se o app pode usar camera e microfone: clique em Permitir.
+SOBRE O APP
+O AME! LIVE é um espaço para conversar e compartilhar atividades com amigos no Windows. Organize conversas em salas e canais, troque mensagens, faça chamadas e acompanhe transmissões de tela ou câmera. A interface combina rosa, azul e detalhes cyber-kawaii com controles simples para áudio, vídeo, convites e perfil.
+
+Com o app, você pode:
+- Criar salas ou entrar usando o link ou código de convite.
+- Conversar por texto e ver quem está na sala e disponível.
+- Participar de chamadas e ligar o microfone ou a câmera quando quiser.
+- Compartilhar sua tela, câmera e áudio do PC nas transmissões.
+- Personalizar nome, foto, status e disponibilidade do perfil.
+
+INSTALAÇÃO
+1. Extraia a pasta inteira e abra "AME LIVE.exe".
+   Mantenha WebView2Loader.dll e cloudflared.exe na mesma pasta do executável.
+2. O servidor de convites já vem integrado ao app; não é preciso instalar ou configurar um servidor separado.
+3. Na primeira execução, permita o acesso à câmera e ao microfone quando o Windows solicitar.
 
 TELA INICIAL
-- Iniciar: escolha "Entrar" (com link ou codigo de um amigo) ou "Criar" (sala nova; o nome e opcional).
-  Ao criar, abre a janela de convite com o link e o codigo para mandar aos amigos.
-- Configuracoes: escolha microfone e camera, audio do PC e (avancado) servidor online.
-- Perfil: nome, foto, status personalizado e disponibilidade.
+- Iniciar: escolha "Entrar" para usar o link ou código de um amigo ou "Criar" para abrir uma sala nova. O nome da sala é opcional. Ao criar, aparece uma janela de convite com link e código para compartilhar.
+- Configurações: selecione microfone e câmera, ajuste o áudio do PC e, se necessário, configure o servidor online nas opções avançadas.
+- Perfil: altere nome, foto, status personalizado e disponibilidade.
 - Sobre o AME! LIVE e Sair.
 
 DENTRO DA SALA
-- A lista de usuarios fica na lateral. Clique no NOME ou na FOTO de alguem para ver a transmissao dela
-  (tela ou camera). Clique de novo para voltar ao automatico (mostra quem estiver transmitindo a tela).
-  Clicar no quadradinho da camera tambem funciona.
-- "Inicio" (aba do topo) volta para a tela inicial e sai da sala.
+- A lista de usuários fica na lateral. Clique no nome ou na foto de alguém para ver a transmissão dessa pessoa (tela ou câmera). Clique novamente para voltar à seleção automática, que mostra quem estiver transmitindo a tela. O quadrado da câmera também seleciona a transmissão.
+- A aba "Início", no topo, retorna à tela inicial e sai da sala.
 
 CHAMADA E VOLUME
-- Ao entrar numa sala voce ja entra na chamada (voce ouve e ve os outros). Microfone e camera continuam desligados ate voce ligar.
-- O botao de volume (alto-falante) abre tres controles: Meu microfone (0 a 200%), Vozes dos amigos e Som da transmissao.
-- Som da transmissao: quem transmite a tela precisa que o navegador capture o audio do PC (em Chrome/Edge, escolha "Tela inteira" e marque "Compartilhar audio do sistema").
-  A janela do app (WebView2) pode nao capturar o audio do PC; para transmitir com som, use o navegador ou a versao Electron.
-- Se o navegador bloquear o som de quem chegou pelo link, clique em qualquer lugar da pagina para liberar.
+- Ao entrar numa sala, você entra na chamada e pode ouvir/ver as outras pessoas. Seu microfone e sua câmera ficam desligados até você ativá-los.
+- O botão de volume (alto-falante) abre controles para o volume do seu microfone (0 a 200%), das vozes dos amigos e do som da transmissão.
+- Para compartilhar o áudio do PC pelo navegador, é preciso permitir a captura de áudio do sistema. No Chrome ou Edge, escolha "Tela inteira" e marque "Compartilhar áudio do sistema".
+- O WebView2 do aplicativo pode não capturar o áudio do PC. Para transmitir com som, use o navegador ou a versão Electron.
+- Se o navegador bloquear o áudio de alguém que entrou pelo link, clique em qualquer lugar da página para liberar o som.
 
-CONVIDAR AMIGOS DE FORA
-- Em "Convidar", clique em "Gerar link para amigos". Mande o link (ou o codigo) para quem quiser.
-- Eles abrem no navegador, sem instalar nada, ou colam em "Entrar" no app.
-- O link vale enquanto o app estiver aberto e muda a cada vez. O video vai direto do seu computador
-  para cada pessoa; funciona melhor com poucas pessoas (uns 4 ou 5).
-- Alguns antivirus ou redes bloqueiam o cloudflared. Se der erro, o app avisa na janela do convite.
+CONVIDAR AMIGOS
+- Na opção "Convidar", clique em "Gerar link para amigos" e envie o link ou o código.
+- Amigos podem abrir o link no navegador, sem instalar o app, ou colar o convite em "Entrar".
+- O link funciona enquanto o app estiver aberto e muda a cada geração. O vídeo é enviado diretamente do seu computador para cada pessoa; o app funciona melhor com grupos pequenos, em torno de 4 ou 5 pessoas.
+- Alguns antivírus ou redes podem bloquear o cloudflared. Se houver erro, o app avisa na janela do convite.
+- Ao gerar um link externo, qualquer pessoa que tenha o link poderá tentar acessar a sala enquanto ele estiver ativo. Compartilhe o convite apenas com quem deseja chamar.
 
-Requisito: Microsoft Edge WebView2 Runtime (ja vem no Windows 11 e na maioria dos Windows 10).
-Se nao abrir, instale em: https://developer.microsoft.com/microsoft-edge/webview2/
+REQUISITO
+É necessário o Microsoft Edge WebView2 Runtime, que já vem no Windows 11 e na maioria das instalações do Windows 10. Se o app não abrir, instale em:
+https://developer.microsoft.com/microsoft-edge/webview2/
 
-Seus dados ficam em %LOCALAPPDATA%\AME-LIVE.
+Seus dados locais ficam em %LOCALAPPDATA%\\AME-LIVE.
 
-Credito: cloudflared (c) Cloudflare, licenca Apache-2.0 - https://github.com/cloudflare/cloudflared
+CÓDIGO-FONTE
+O código está na pasta codigo-fonte. Para recompilar, instale o Rust (rustup.rs) e execute "cargo build --release" dentro dessa pasta.
 
-Para recompilar: instale o Rust (rustup.rs) e rode "cargo build --release" dentro de codigo-fonte.
-
+CRÉDITOS
+O pacote inclui cloudflared, da Cloudflare, distribuído sob a licença Apache-2.0:
+https://github.com/cloudflare/cloudflared
